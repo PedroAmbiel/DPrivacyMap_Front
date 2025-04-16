@@ -3,14 +3,11 @@ import { defineStore } from 'pinia'
 export const userStore = defineStore({
   id: 'userStore',
   state: () => ({ 
-    idPrestador: null,
+    idUsuario: null,
     nome: null,
-    sobrenome: null,
+    responsavel: null,
+    perfil: null,
     email: null,
-    telefone: null,
-    cpf: null,
-    dataNascimento: null,
-    empresaCadastrada: false
   }),
   persist:{
     storage: piniaPluginPersistedstate.localStorage(),
@@ -22,33 +19,30 @@ export const userStore = defineStore({
     }
   },
   actions: {
-    async login(email: string, password : string){
+    async login(email: string, senha : string){
       let msg; 
-      await useFetch('http://localhost:8080/api/prestador/login', {
+      await useFetch('http://localhost:8000/login', {
         method: 'POST',
         body: {
-          cpf: email,
-          senha: password
+          email: email,
+          senha: senha
         },
   
         onResponse({request, response, options}){
+          console.log(response)
           if(response.status == 200){
             console.log(response._data)
-            userStore().idPrestador = response._data.id.toString()
+            userStore().idUsuario = response._data.id.toString()
             userStore().nome = response._data.nome
-            userStore().sobrenome = response._data.sobrenome
+            userStore().responsavel = response._data.responsavel
             userStore().email = response._data.email
-            userStore().telefone = response._data.telefone
-            userStore().cpf = response._data.cpf
-            userStore().dataNascimento = response._data.dataNascimento
+            userStore().perfil = response._data.perfil
             msg = "T"
           }
         },
         onResponseError({ request, response, options }) {
-          if(response.status == 401){
-            console.log(response._data)
-            msg = response._data.toString()
-          } 
+          console.log(response)
+          msg = response._data.detail.toString()
         },
       })
 
@@ -56,33 +50,33 @@ export const userStore = defineStore({
   },
 
   isAutenticado(){
-    if(this.idPrestador){
+    if(this.idUsuario){
       return true
     }else{
       return false
     }
   },
 
-  possuiEmpresaCadastrada(){
-    var router = useRouter()
+  // possuiEmpresaCadastrada(){
+  //   var router = useRouter()
 
-    useFetch('http://localhost:8080/api/prestador/buscarempresa', {
-      method: 'GET',
-      query: { idPrestador: this.idPrestador },
+  //   useFetch('http://localhost:8080/api/prestador/buscarempresa', {
+  //     method: 'GET',
+  //     query: { idPrestador: this.idPrestador },
       
-      onResponse({options, request, response, error}){
-        if(response.status == 200){
-          router.push('/painel')
-          userStore().empresaCadastrada = true
-        }
-      },
-      onResponseError({ request, options, error, response }) {
-          if(response.status == 404){
-            router.push('/cadastro-empresa')
-          }
-      }
-    })
-  },
+  //     onResponse({options, request, response, error}){
+  //       if(response.status == 200){
+  //         router.push('/painel')
+  //         userStore().empresaCadastrada = true
+  //       }
+  //     },
+  //     onResponseError({ request, options, error, response }) {
+  //         if(response.status == 404){
+  //           router.push('/cadastro-empresa')
+  //         }
+  //     }
+  //   })
+  // },
 
   limparUserStore(){
     this.$reset()
