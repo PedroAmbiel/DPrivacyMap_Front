@@ -2,8 +2,8 @@
   <div>
     <Toast />
     <TopNavBar/>
-    <div class="bg-red-700 fixed w-full h-full">
-      <div class="place-self-start ml-20 mt-10">
+    <div class="bg-red-700 w-full h-full p-10">
+      <div class="place-self-start ml-10">
         <Button class="bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
       </div>
       <div class="relative bg-white rounded-lg p-10 mt-10 place-self-center">
