@@ -2,7 +2,7 @@
   <div>
     <Toast />
     <TopNavBar/>
-    <div class="bg-red-700 w-full h-full p-10">
+    <div class="absolute bg-slate-100 w-full h-full p-10">
       <div class="place-self-start ml-10">
         <Button class="bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
       </div>
@@ -12,24 +12,25 @@
           <div class="flex flex-row gap-10 justify-between">
             <div class="flex flex-col">
               <label for="area" class="text-black">Área</label>
-              <InputText id="area" v-model="area" placeholder="Área de Atuação"/>
+              <Select v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" placeholder="Área de Atuação"
+              class="w-full md:w-80"/>
             </div>
 
             <div class="flex flex-col">
               <label for="tipo_operacao" class="text-black">Tipo Operação</label>
-              <MultiSelect v-model:model-value="tipoOperacaoSelecionado" :options="tipoOperacoes" option-label="nome" id="tipo_operacao" placeholder="Selecione"
+              <MultiSelect v-model:model-value="tipoOperacaoSelecionado" :options="tipoOperacoes" option-label="nome" option-value="nome" id="tipo_operacao" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
             <div class="flex flex-col">
               <label for="dados_coletados" class="text-black">Dados Coletados</label>
-              <MultiSelect id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" :options="dadosColetados" option-label="nome" placeholder="Selecione"
+              <MultiSelect id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" :options="dadosColetados" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
             <div class="flex flex-col">
               <label for="finalidade" class="text-black">Finalidade</label>
-              <MultiSelect id="finalidade" v-model:model-value="finalidadeSelecionado" :options="finalidade" option-label="nome" placeholder="Selecione"
+              <MultiSelect id="finalidade" v-model:model-value="finalidadeSelecionado" :options="finalidade" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
           </div>
@@ -37,20 +38,42 @@
           <div class="flex flex-row justify-between gap-x-10">
             <div class="flex flex-col">
               <label for="revisao" class="text-black">Revisão</label>
-              <MultiSelect id="revisao" v-model:model-value="revisaoSelecionado" :options="revisao" option-label="nome" placeholder="Selecione"
+              <MultiSelect id="revisao" v-model:model-value="revisaoSelecionado" :options="revisao" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
             <div class="flex flex-col">
               <label for="retencao" class="text-black">Retenção</label>
-              <MultiSelect id="retencao" v-model:model-value="retencaoSelecionado" :options="retencao" option-label="nome" placeholder="Selecione"
+              <MultiSelect id="retencao" v-model:model-value="retencaoSelecionado" :options="retencao" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
             <div class="flex flex-col">
+              <!-- <label for="seguranca" class="text-black">Segurança</label>
+              <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
+              class="w-full md:w-80"/> -->
+              
               <label for="seguranca" class="text-black">Segurança</label>
-              <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" placeholder="Selecione"
-              class="w-full md:w-80"/>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">Exclusão de E-mails</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de Acesso" pt:box:class="!bg-yellow-300" />
+                <label class="text-black pl-2">Limitação de Acesso</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de acesso e Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">Limitação de acesso e Exclusão de E-mails</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Outros" pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">Outros</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="N.A." pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">N.A.</label>
+              </div>
             </div>
 
 
@@ -127,14 +150,13 @@
 
 
           <div class="pt-3 flex flex-row gap-x-3">
-            <Button value="Salvar" class="font-bold bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none">
+            <Button value="Salvar" class="font-bold bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none" @click="salvarFicha()">
               SALVAR
             </Button>
             <Button value="Salvar e Enviar" class="font-bold bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none" @click="finalizarEnviarFicha()">
               SALVAR E ENVIAR
             </Button>
           </div>
-
         </div>
         </form>
       </div>
@@ -147,6 +169,7 @@
 <script lang="ts" setup>
 import { createPersistedState } from 'pinia-plugin-persistedstate'
 
+
   const toast = useToast()
   const route = useRoute();
 
@@ -156,7 +179,9 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
     }
   })
 
-  const tipoOperacaoSelecionado = ref(null)
+  const idFichaEdicao = ref(null)
+
+  const tipoOperacaoSelecionado = ref(null);
   const tipoOperacoes = [
     {nome: 'Coleta', value: 'Coleta'},
     {nome: 'Transferência', value: 'Transferência'},
@@ -213,13 +238,13 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
   ]
 
   const segurancaSelecionado = ref(null)
-  const seguranca = [
-    {nome: 'Exclusão de E-mails', value: 'Exclusão de E-mails'},
-    {nome: 'Outros', value: 'Outros'},
-    {nome: 'Limitação de Acesso', value: 'Limitação de Acesso'},
-    {nome: 'Limitação de acesso e Exclusão de E-mails', value: 'Limitação de acesso e Exclusão de E-mails'},
-    {nome: 'N.A.', value: 'N.A.'},
-  ]
+  // const seguranca = [
+  //   {nome: 'Exclusão de E-mails', value: 'Exclusão de E-mails'},
+  //   {nome: 'Outros', value: 'Outros'},
+  //   {nome: 'Limitação de Acesso', value: 'Limitação de Acesso'},
+  //   {nome: 'Limitação de acesso e Exclusão de E-mails', value: 'Limitação de acesso e Exclusão de E-mails'},
+  //   {nome: 'N.A.', value: 'N.A.'},
+  // ]
 
   const armazenamento = ref(null)
   // const armazenamento = [
@@ -235,20 +260,154 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 
   const transferenciaInternacional = ref(null)
 
-  const area = ref(null)
+  const areaSelecionada = ref()
+  const area = [
+    {nome: 'Regulatórios', value: 'Regulatórios'},
+    {nome: 'Manufatura', value: 'Manufatura'},
+    {nome: 'Financeiro', value: 'Financeiro'},
+    {nome: 'Qualidade / P&D', value: 'Qualidade / P&D'},
+    {nome: 'Excelência Operacional', value: 'Excelência Operacional'},
+    {nome: 'Vendas', value: 'Vendas'},
+    {nome: 'Recursos Humanos', value: 'Recursos Humanos'},
+    {nome: 'Supply Chain', value: 'Supply Chain'},
+    {nome: 'Contabil', value: 'Contabil'},
+    {nome: 'Tecnologia da Informação', value: 'Tecnologia da Informação'},
+  ]
+
+
+  function validarPreenchimento(){
+    //CHECANDO SE TODOS OS CAMPOS FORAM PREENCHIDOS
+    let valido = true
+    console.log(tipoOperacaoSelecionado.value)
+    console.log(areaSelecionada.value)
+    console.log(dadosColetadosSelecionado.value)
+    console.log(finalidadeSelecionado.value)
+    console.log(revisaoSelecionado.value)
+    console.log(retencaoSelecionado.value)
+    console.log(segurancaSelecionado.value)
+    console.log(armazenamento.value)
+    console.log(exclusao.value)
+    console.log(compartilhamentoTerceiros.value)
+    console.log(transferenciaInternacional.value)
+    if(tipoOperacaoSelecionado.value == '' || tipoOperacaoSelecionado.value == null){
+      alert("ENTROU 1")
+      valido = false
+    }
+
+    else if(areaSelecionada.value == '' || areaSelecionada.value == null){
+      alert("ENTROU 2")
+      valido = false
+    }
+
+    else if(dadosColetadosSelecionado.value == '' || dadosColetadosSelecionado.value == null){
+      alert("ENTROU 3")
+      valido = false
+    }
+
+    else if(finalidadeSelecionado.value == '' || finalidadeSelecionado.value == null){
+      alert("ENTROU 4")
+      valido = false
+    }
+
+    else if(revisaoSelecionado.value == '' || revisaoSelecionado.value == null){
+      alert("ENTROU 5")
+      valido = false
+    }
+
+    else if(retencaoSelecionado.value == '' || retencaoSelecionado.value == null){
+      alert("ENTROU 6")
+      valido = false
+    }
+
+    else if(segurancaSelecionado.value == '' || segurancaSelecionado.value == null){
+      alert("ENTROU 7")
+      valido = false
+    }
+
+    else if(armazenamento.value == '' || armazenamento.value == null){
+      alert("ENTROU 8")
+      valido = false
+    }
+
+    else if(exclusao.value == null){
+      alert("ENTROU 9")
+      valido = false
+    }
+
+    else if(compartilhamentoTerceiros.value == null){
+      alert("ENTROU 10")
+      valido = false
+    }
+
+    else if(transferenciaInternacional.value == null){
+      alert("ENTROU 11")
+      valido = false
+    }
+
+    if(valido == false){
+      toast.add({severity: 'error', summary: 'Erro: ' + 'Preencha todos os campos', life: 3000})
+    }
+
+    return valido
+  }
 
   async function finalizarEnviarFicha(){
-    await useFetch('http://localhost:8000/finalizar_ficha', {
-      method: 'POST',
+    if(validarPreenchimento() == false){
+      return null
+    }else{
+      await useFetch('http://localhost:8000/finalizar_ficha', {
+        method: 'PUT',
+        body:{
+          idFicha: idFichaEdicao.value,
+          usuario: userStore().idUsuario,
+          area: areaSelecionada.value != undefined ? areaSelecionada.value : null,
+          tipoOperacao: tipoOperacaoSelecionado.value != undefined ? tipoOperacaoSelecionado.value : null,
+          dadosColetados: dadosColetadosSelecionado.value != undefined ? dadosColetadosSelecionado.value : null,
+          finalidade: finalidadeSelecionado.value != undefined ? finalidadeSelecionado.value : null,
+          revisao: revisaoSelecionado.value != undefined ? revisaoSelecionado.value : null,
+          retencao: retencaoSelecionado.value != undefined ? retencaoSelecionado.value : null,
+          seguranca: segurancaSelecionado.value != undefined ? segurancaSelecionado.value : null,
+          armazenamento: armazenamento.value,
+          exclusao: exclusao.value,
+          compartilhamentoTerceiros: compartilhamentoTerceiros.value,
+          transferenciaInternacional: transferenciaInternacional.value,
+        },
+  
+        onResponse({request, response, options}){
+          if(response.status == 200){
+            console.log(JSON.parse(response._data).idFicha)
+            useFetch('http://localhost:8000/criar_secoes', {
+              method: 'POST',
+              body:{
+                idFicha: JSON.parse(response._data).idFicha,
+              }, 
+            })
+
+            useRouter().push('/home')
+          }
+        },
+  
+        onResponseError({ request, response, options }) {
+          toast.add({severity: 'error', summary: response._data, life: 3000})
+        } 
+      })
+    }
+
+  }
+
+  async function salvarFicha(){
+    await useFetch('http://localhost:8000/atualizar_ficha', {
+      method: 'PUT',
       body:{
+        idFicha: idFichaEdicao.value,
         usuario: userStore().idUsuario,
-        area: area.value,
-        tipoOperacao: tipoOperacaoSelecionado.value,
-        dadosColetados: dadosColetadosSelecionado.value,
-        finalidade: finalidadeSelecionado.value,
-        revisao: revisaoSelecionado.value,
-        retencao: retencaoSelecionado.value,
-        seguranca: segurancaSelecionado.value,
+        area: areaSelecionada.value != undefined ? areaSelecionada.value : null,
+        tipoOperacao: tipoOperacaoSelecionado.value != undefined ? tipoOperacaoSelecionado.value : null,
+        dadosColetados: dadosColetadosSelecionado.value != undefined ? dadosColetadosSelecionado.value : null,
+        finalidade: finalidadeSelecionado.value != undefined ? finalidadeSelecionado.value : null,
+        revisao: revisaoSelecionado.value != undefined ? revisaoSelecionado.value : null,
+        retencao: retencaoSelecionado.value != undefined ? retencaoSelecionado.value : null,
+        seguranca: segurancaSelecionado.value != undefined ? segurancaSelecionado.value : null,
         armazenamento: armazenamento.value,
         exclusao: exclusao.value,
         compartilhamentoTerceiros: compartilhamentoTerceiros.value,
@@ -268,16 +427,17 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
     })
   }
 
-  function salvarFicha(){
-
-  }
-
   async function carregarDadosFicha(){
+    idFichaEdicao.value = route.query.idFicha
     await useFetch('http://localhost:8000/buscar_ficha/'+route.query.idFicha, {
     method: 'GET',
     async onResponse({ request, response, options }) {
         if(response.status == 200){
-          await preencherCamposComFichaExistente(response._data)
+          if(response._data != false){
+            await preencherCamposComFichaExistente(response._data)
+          }else{
+            useRouter().push('/lista_planos')
+          }
         }
     },
     onResponseError({ request, response, options }) {
@@ -287,20 +447,94 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
   }
 
   async function preencherCamposComFichaExistente(response:any){
+  console.log(response)
+
     if(response.armazenamento){
       armazenamento.value = response.armazenamento
     }
+
     if(response.area){
-      area.value = response.area
+        area.forEach(y => {
+          if(response.area == y.nome){
+            areaSelecionada.value = y.nome
+        }
+      });
     }
+
     if(response.compartilhamentoTerceiros != null){
       compartilhamentoTerceiros.value = response.compartilhamentoTerceiros
     }
+
     if(response.exclusao != null){
       exclusao.value = response.exclusao
     }
+
     if(response.transferenciaInternacional != null){
       transferenciaInternacional.value = response.transferenciaInternacional
+    }
+
+    if(response.seguranca){
+      segurancaSelecionado.value = response.seguranca
+    }
+
+    if(response.tipoOperacao){
+      var auxOperacoes = []
+      for(let i of response.tipoOperacao){
+        for(let x of tipoOperacoes){
+          if(x.nome == i){
+            auxOperacoes.push(x.nome)
+          }
+        }
+      }
+      tipoOperacaoSelecionado.value = auxOperacoes
+    }
+
+    if(response.dadosColetados){
+      var auxDados = []
+      for(let i of response.dadosColetados){
+        for(let x of dadosColetados){
+          if(x.nome == i){
+            auxDados.push(x.nome)
+          }
+        }
+      }
+      dadosColetadosSelecionado.value = auxDados
+    }
+
+    if(response.finalidade){
+      var auxFinalidade = []
+      for(let i of response.finalidade){
+        for(let x of finalidade){
+          if(x.nome == i){
+            auxFinalidade.push(x.nome)
+          }
+        }
+      }
+      finalidadeSelecionado.value = auxFinalidade
+    }
+
+    if(response.revisao){
+      var auxRevisao = []
+      for(let i of response.revisao){
+        for(let x of revisao){
+          if(x.nome == i){
+            auxRevisao.push(x.nome)
+          }
+        }
+      }
+      revisaoSelecionado.value = auxRevisao
+    }
+
+    if(response.retencao){
+      var auxRetencao = []
+      for(let i of response.retencao){
+        for(let x of retencao){
+          if(x.nome == i){
+            auxRetencao.push(x.nome)
+          }
+        }
+      }
+      retencaoSelecionado.value = auxRetencao
     }
   }
 

@@ -21,7 +21,7 @@
         <Button @click="useRouter().push('/lista_planos')" label="Solicitar Plano de Ação" class="bg-red-900 hover:!bg-red-800 text-white text-3xl p-10 w-84 h-44 font-bold rounded-xl border-none hover:!border-none" />
         <!-- <Button label="Inventário" class="bg-red-900 hover:!bg-red-800 text-white text-3xl w-72 font-bold  rounded-xl border-none hover:!border-none" />
         <Button label="Riscos" class="bg-red-900 hover:!bg-red-800 text-white text-3xl w-72 font-bold  rounded-xl border-none hover:!border-none" /> -->
-        <Button label="Acompanhar Planos de Ação" class="bg-red-900 hover:!bg-red-800 text-white text-3xl p-10 w-84 h-44 font-bold  rounded-xl border-none hover:!border-none" />
+        <Button @click="useRouter().push('/lista_planos_gerados')" label="Acompanhar Planos de Ação" class="bg-red-900 hover:!bg-red-800 text-white text-3xl p-10 w-84 h-44 font-bold  rounded-xl border-none hover:!border-none" />
       </div>
     </div>
   </div>

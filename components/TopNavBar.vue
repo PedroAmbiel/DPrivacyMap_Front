@@ -4,7 +4,7 @@
     <div class="relative z-10 flex items-center justify-between px-6 py-8 bg-red-900 top-0">
       <i class="pi pi-home text-white text-4xl hover:cursor-pointer" @click="useRouter().push('/home')"></i>
       <h1 class="text-white font-bold text-4xl">DPrivacy Map</h1>
-      <i class="pi pi-user text-white text-4xl"></i>
+      <!-- <i class="pi pi-user text-white text-4xl"></i> -->
     </div>
   </div>
 </template>
