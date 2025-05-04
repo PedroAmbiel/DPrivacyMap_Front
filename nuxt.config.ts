@@ -16,7 +16,7 @@ export default defineNuxtConfig({
         cssLayer: {
           name: 'primevue',
           order: 'tailwind-base, tailwind-utilities, primevue '
-        }
+        },
       },
     },
   },

@@ -1,53 +1,108 @@
 <template>
-  <div>
+  <div class="bg-slate-100">
     <Toast />
     <TopNavBar/>
-    <div class="absolute bg-slate-100 w-full h-full p-10">
-      <div class="place-self-start ml-10">
-        <Button class="bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
-      </div>
-      <div class="relative bg-white rounded-lg p-10 mt-10 place-self-center">
+    <div class="place-self-start px-10 my-3">
+      <Button class="bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
+    </div>
+    <div class="relative w-full h-full">
+      <div class="relative bg-[#D9D9D9] rounded-lg p-10 place-self-center">
         <form>
         <div class="flex flex-col gap-y-10 ">
           <div class="flex flex-row gap-10 justify-between">
             <div class="flex flex-col">
               <label for="area" class="text-black">Área</label>
-              <Select v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" placeholder="Área de Atuação"
-              class="w-full md:w-80"/>
+              <Listbox v-model:model-value="areaSelecionada" multiple :options="area" option-label="nome" option-value="nome" id="area" 
+              placeholder="Área de Atuação"
+              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox" :select-on-focus="false">
+              <template #option="slotProps">
+                <div
+                  :class="[
+                    'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
+                    slotProps.selected
+                      ? 'bg-white text-black'
+                      : 'hover:bg-gray-700 text-white'
+                  ]"
+                >
+                  {{ slotProps.option.nome }}
+                </div>
+              </template>
+            </Listbox>
             </div>
 
             <div class="flex flex-col">
               <label for="tipo_operacao" class="text-black">Tipo Operação</label>
-              <MultiSelect v-model:model-value="tipoOperacaoSelecionado" :options="tipoOperacoes" option-label="nome" option-value="nome" id="tipo_operacao" placeholder="Selecione"
+              <Listbox v-model:model-value="tipoOperacaoSelecionado" multiple :options="tipoOperacoes" option-label="nome" option-value="nome" id="tipo_operacao" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
             <div class="flex flex-col">
               <label for="dados_coletados" class="text-black">Dados Coletados</label>
-              <MultiSelect id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" :options="dadosColetados" option-label="nome" option-value="nome" placeholder="Selecione"
+              <Listbox id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" multiple :options="dadosColetados" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
-            <div class="flex flex-col">
+            <!-- <div class="flex flex-col">
               <label for="finalidade" class="text-black">Finalidade</label>
-              <MultiSelect id="finalidade" v-model:model-value="finalidadeSelecionado" :options="finalidade" option-label="nome" option-value="nome" placeholder="Selecione"
+              <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
-            </div>
+            </div> -->
           </div>
 
           <div class="flex flex-row justify-between gap-x-10">
+
+            <div class="flex flex-col">
+              <label for="finalidade" class="text-black">Finalidade</label>
+              <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" option-value="nome" placeholder="Selecione"
+              class="w-full md:w-80"/>
+            </div>
+
             <div class="flex flex-col">
               <label for="revisao" class="text-black">Revisão</label>
-              <MultiSelect id="revisao" v-model:model-value="revisaoSelecionado" :options="revisao" option-label="nome" option-value="nome" placeholder="Selecione"
+              <Listbox id="revisao" v-model:model-value="revisaoSelecionado" multiple :options="revisao" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
             <div class="flex flex-col">
               <label for="retencao" class="text-black">Retenção</label>
-              <MultiSelect id="retencao" v-model:model-value="retencaoSelecionado" :options="retencao" option-label="nome" option-value="nome" placeholder="Selecione"
+              <Listbox id="retencao" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div>
 
+            <!-- <div class="flex flex-col"> -->
+              <!-- <label for="seguranca" class="text-black">Segurança</label>
+              <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
+              class="w-full md:w-80"/> -->
+              
+              <!-- <label for="seguranca" class="text-black">Segurança</label>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">Exclusão de E-mails</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de Acesso" pt:box:class="!bg-yellow-300" />
+                <label class="text-black pl-2">Limitação de Acesso</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de acesso e Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">Limitação de acesso e Exclusão de E-mails</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Outros" pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">Outros</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="N.A." pt:box:class="!bg-yellow-300"/>
+                <label class="text-black pl-2">N.A.</label>
+              </div>
+            </div> -->
+
+
+          </div>
+
+          <div class="flex flex-row justify-around p-10">
+            
+            
             <div class="flex flex-col">
               <!-- <label for="seguranca" class="text-black">Segurança</label>
               <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
@@ -76,10 +131,6 @@
               </div>
             </div>
 
-
-          </div>
-
-          <div class="flex flex-row justify-around p-10">
             <div class="flex flex-col">
               <label for="armazenamento" class="text-black">Armazenamento</label>
               <div class="flex flex-row">
@@ -542,18 +593,10 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 </script>
 
 <style>
-/* Tailwind classes applied manually */
-.custom-radio-box {
-  @apply transition-all rounded-full border-2 border-gray-300;
+::v-deep(.p-listbox-item.p-highlight) {
+  background-color: white !important;
+  color: black !important;
+  font-weight: 600;
 }
 
-/* When selected */
-.custom-radio-box.p-highlight {
-  @apply ring-2 ring-blue-500 border-blue-500;
-}
-
-/* When focused */
-.custom-radio-box.p-focus {
-  @apply ring-2 ring-blue-500;
-}
 </style>
