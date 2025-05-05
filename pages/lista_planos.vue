@@ -6,13 +6,13 @@
       <h2 class="place-self-center mt-10 text-4xl font-bold text-black">Cadastro de Planos</h2>
       <!-- <hr class="mt-5 border-4"> -->
       <div class="place-self-end mr-20 mt-10">
-        <Button class="bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('/cadastro_plano')">Novo Plano</Button>
+        <Button class="bg-[#D9D9D9] border-none hover:!bg-[#bb8383] hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('/cadastro_plano')">Novo Plano</Button>
       </div>
       
       <div class="bg-white flex flex-col mx-20 rounded-lg mt-10 overflow-y-scroll h-3/5">
         <div v-if="planosPendentes == null" class="text-black text-2xl text-center p-5"> Carregando...</div>
         <div v-if="planosPendentes == 'E'" class="text-black text-2xl text-center p-5" > Nenhum plano pendente de finalização </div>
-        <div v-if="planosPendentes != 'E'" v-for="item in planosPendentes" class="text-black text-center hover:bg-red-200 
+        <div v-if="planosPendentes != 'E'" v-for="item in planosPendentes" class="text-black text-center hover:bg-[#D9D9D9] 
           hover:cursor-pointer rounded-lg p-5 " @click="selecionarFicha(item)" >
             Id: <span>{{ item.id }}</span>
             <br>

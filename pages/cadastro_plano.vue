@@ -3,7 +3,7 @@
     <Toast />
     <TopNavBar/>
     <div class="place-self-start px-10 my-3">
-      <Button class="bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
+      <Button class="bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
     </div>
     <div class="relative w-full h-full">
       <div class="relative bg-[#D9D9D9] rounded-lg p-10 place-self-center">
@@ -11,17 +11,17 @@
         <div class="flex flex-col gap-y-10 ">
           <div class="flex flex-row gap-10 justify-between">
             <div class="flex flex-col">
-              <label for="area" class="text-black">Área</label>
-              <Listbox v-model:model-value="areaSelecionada" multiple :options="area" option-label="nome" option-value="nome" id="area" 
+              <label for="area" class="text-slate-800 text-2xl text-center">ÁREA</label>
+              <Listbox v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" 
               placeholder="Área de Atuação"
-              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox" :select-on-focus="false">
+              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl ">
               <template #option="slotProps">
                 <div
                   :class="[
                     'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
                     slotProps.selected
-                      ? 'bg-white text-black'
-                      : 'hover:bg-gray-700 text-white'
+                      ? 'bg-white text-black w-full h-full'
+                      : 'hover:bg-white text-black w-full h-full'
                   ]"
                 >
                   {{ slotProps.option.nome }}
@@ -31,15 +31,43 @@
             </div>
 
             <div class="flex flex-col">
-              <label for="tipo_operacao" class="text-black">Tipo Operação</label>
-              <Listbox v-model:model-value="tipoOperacaoSelecionado" multiple :options="tipoOperacoes" option-label="nome" option-value="nome" id="tipo_operacao" placeholder="Selecione"
-              class="w-full md:w-80"/>
+              <label for="tipo_operacao" class="text-slate-800 text-2xl text-center">TIPO OPERAÇÃO</label>
+              <Listbox v-model:model-value="tipoOperacaoSelecionado" multiple :options="tipoOperacoes" option-label="nome" option-value="nome" 
+              id="tipo_operacao" placeholder="Selecione"
+              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
+                <template #option="slotProps">
+                  <div
+                    :class="[
+                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
+                      slotProps.selected
+                        ? 'bg-white text-black w-full h-full'
+                        : 'hover:bg-white text-black w-full h-full'
+                    ]"
+                  >
+                    {{ slotProps.option.nome }}
+                  </div>
+                </template>
+              </Listbox>
             </div>
 
             <div class="flex flex-col">
-              <label for="dados_coletados" class="text-black">Dados Coletados</label>
-              <Listbox id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" multiple :options="dadosColetados" option-label="nome" option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80"/>
+              <label for="dados_coletados" class="text-slate-800 text-2xl text-center">DADOS COLETADOS</label>
+              <Listbox id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" multiple :options="dadosColetados" option-label="nome" 
+              option-value="nome" placeholder="Selecione"
+              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
+                <template #option="slotProps">
+                  <div
+                    :class="[
+                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
+                      slotProps.selected
+                        ? 'bg-white text-black w-full h-full'
+                        : 'hover:bg-white text-black w-full h-full'
+                    ]"
+                  >
+                    {{ slotProps.option.nome }}
+                  </div>
+                </template>
+              </Listbox>
             </div>
 
             <!-- <div class="flex flex-col">
@@ -52,21 +80,63 @@
           <div class="flex flex-row justify-between gap-x-10">
 
             <div class="flex flex-col">
-              <label for="finalidade" class="text-black">Finalidade</label>
-              <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80"/>
+              <label for="finalidade" class="text-slate-800 text-2xl text-center">FINALIDADE</label>
+              <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" 
+              option-value="nome" placeholder="Selecione"
+              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
+                <template #option="slotProps">
+                  <div
+                    :class="[
+                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
+                      slotProps.selected
+                        ? 'bg-white text-black w-full h-full'
+                        : 'hover:bg-white text-black w-full h-full'
+                    ]"
+                  >
+                    {{ slotProps.option.nome }}
+                  </div>
+                </template>
+              </Listbox>
             </div>
 
             <div class="flex flex-col">
-              <label for="revisao" class="text-black">Revisão</label>
-              <Listbox id="revisao" v-model:model-value="revisaoSelecionado" multiple :options="revisao" option-label="nome" option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80"/>
+              <label for="revisao" class="text-slate-800 text-2xl text-center">REVISÃO</label>
+              <Listbox id="revisao" v-model:model-value="revisaoSelecionado" multiple :options="revisao" option-label="nome" 
+              option-value="nome" placeholder="Selecione"
+              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
+                <template #option="slotProps">
+                  <div
+                    :class="[
+                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
+                      slotProps.selected
+                        ? 'bg-white text-black w-full h-full'
+                        : 'hover:bg-white text-black w-full h-full'
+                    ]"
+                  >
+                    {{ slotProps.option.nome }}
+                  </div>
+                </template>
+              </Listbox>
             </div>
 
             <div class="flex flex-col">
-              <label for="retencao" class="text-black">Retenção</label>
-              <Listbox id="retencao" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80"/>
+              <label for="retencao" class="text-slate-800 text-2xl text-center">RETENÇÃO</label>
+              <Listbox id="retencao" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" 
+              option-value="nome" placeholder="Selecione"
+              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
+                <template #option="slotProps">
+                  <div
+                    :class="[
+                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
+                      slotProps.selected
+                        ? 'bg-white text-black w-full h-full'
+                        : 'hover:bg-white text-black w-full h-full'
+                    ]"
+                  >
+                    {{ slotProps.option.nome }}
+                  </div>
+                </template>
+              </Listbox>
             </div>
 
             <!-- <div class="flex flex-col"> -->
@@ -108,81 +178,109 @@
               <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/> -->
               
-              <label for="seguranca" class="text-black">Segurança</label>
+              <label for="seguranca" class="text-slate-800 text-2xl">SEGURANÇA</label>
               <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Exclusão de E-mails" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Exclusão de E-mails</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de Acesso" pt:box:class="!bg-yellow-300" />
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de Acesso" pt:box:class="!bg-white" />
                 <label class="text-black pl-2">Limitação de Acesso</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de acesso e Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de acesso e Exclusão de E-mails" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Limitação de acesso e Exclusão de E-mails</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Outros" pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Outros" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Outros</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="N.A." pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="N.A." pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">N.A.</label>
               </div>
             </div>
 
             <div class="flex flex-col">
-              <label for="armazenamento" class="text-black">Armazenamento</label>
+              <label for="armazenamento" class="text-slate-800 text-2xl">ARMAZENAMENTO</label>
               <div class="flex flex-row">
-                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="Físico" pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="Físico" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Físico</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="Digital" pt:box:class="!bg-yellow-300" />
+                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="Digital" pt:box:class="!bg-white" />
                 <label class="text-black pl-2">Digital</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="Físico e Digital" pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="Físico e Digital" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Físico e Digital</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="N.A." pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="N.A." pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">N.A.</label>
               </div>
             </div>
 
             <div class="flex flex-col">
-              <label class="text-black">Exclusão</label>
+              <label class="text-slate-800 text-2xl">EXCLUSÃO</label>
               <div class="flex flex-row">
-                <RadioButton v-model="exclusao" inputId="exclusao" name="exclusao" :value="true" pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="exclusao" inputId="exclusao" name="exclusao" :value="true" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Sim</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="exclusao" inputId="exclusao" name="exclusao" :value="false" pt:box:class="!bg-yellow-300" />
+                <RadioButton v-model="exclusao" inputId="exclusao" name="exclusao" :value="false" pt:box:class="!bg-white" />
+                <label class="text-black pl-2">Não</label>
+              </div>
+            </div>
+
+            <!-- <div class="flex flex-col">
+              <label class="text-slate-800 text-2xl ">COMPARTILHAMENTO À TERCEIROS</label>
+              <div class="flex flex-row">
+                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="true" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Sim</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="false" pt:box:class="!bg-white" />
+                <label class="text-black pl-2">Não</label>
+              </div>
+            </div> -->
+
+            <!-- <div class="flex flex-col">
+              <label for="transferencia_internacional" class="text-slate-800 text-2xl">TRANSFERÊNCIA INTERNACIONAL</label>
+              <div class="flex flex-row">
+                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="true" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Sim</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="false" pt:box:class="!bg-white" />
+                <label class="text-black pl-2">Não</label>
+              </div>
+            </div> -->
+
+          </div>
+
+          <div class="flex flex-row justify-around p-10">
+
+            <div class="flex flex-col">
+              <label class="text-slate-800 text-2xl ">COMPARTILHAMENTO À TERCEIROS</label>
+              <div class="flex flex-row">
+                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="true" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Sim</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="false" pt:box:class="!bg-white" />
                 <label class="text-black pl-2">Não</label>
               </div>
             </div>
 
             <div class="flex flex-col">
-              <label class="text-black">Compartilhamento à Terceiros</label>
+              <label for="transferencia_internacional" class="text-slate-800 text-2xl">TRANSFERÊNCIA INTERNACIONAL</label>
               <div class="flex flex-row">
-                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="true" pt:box:class="!bg-yellow-300"/>
+                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="true" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Sim</label>
               </div>
               <div class="flex flex-row">
-                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="false" pt:box:class="!bg-yellow-300" />
-                <label class="text-black pl-2">Não</label>
-              </div>
-            </div>
-
-            <div class="flex flex-col">
-              <label for="transferencia_internacional" class="text-black">Transferência Internacional</label>
-              <div class="flex flex-row">
-                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="true" pt:box:class="!bg-yellow-300"/>
-                <label class="text-black pl-2">Sim</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="false" pt:box:class="!bg-yellow-300" />
+                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="false" pt:box:class="!bg-white" />
                 <label class="text-black pl-2">Não</label>
               </div>
             </div>
@@ -201,10 +299,10 @@
 
 
           <div class="pt-3 flex flex-row gap-x-3">
-            <Button value="Salvar" class="font-bold bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none" @click="salvarFicha()">
+            <Button value="Salvar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="salvarFicha()">
               SALVAR
             </Button>
-            <Button value="Salvar e Enviar" class="font-bold bg-yellow-300 border-none hover:!bg-yellow-600 hover:!border-none" @click="finalizarEnviarFicha()">
+            <Button value="Salvar e Enviar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="finalizarEnviarFicha()">
               SALVAR E ENVIAR
             </Button>
           </div>
@@ -510,6 +608,7 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
             areaSelecionada.value = y.nome
         }
       });
+      // areaSelecionada.value = response.area
     }
 
     if(response.compartilhamentoTerceiros != null){
@@ -593,10 +692,19 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 </script>
 
 <style>
-::v-deep(.p-listbox-item.p-highlight) {
+.p-listbox-option-selected {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.p-listbox-option:hover {
   background-color: white !important;
-  color: black !important;
-  font-weight: 600;
+  color: inherit !important;
+}
+
+.p-focus {
+  background-color: white !important;
+  color: inherit !important;
 }
 
 </style>

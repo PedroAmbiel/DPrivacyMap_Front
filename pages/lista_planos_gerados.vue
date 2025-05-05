@@ -46,10 +46,12 @@
       <p class="text-gray-500" v-if="secoes == undefined || secoes == 'E'">This is the right side. It's larger and currently empty.</p>
       <ul>
         <li v-for="(secao, index) in secoes" class="p-2 px-5 bg-white  rounded relative">
-        <BlockUI :blocked="secao.resposta == null">
+        <BlockUI :blocked="secao.resposta == null" :class="secao.resposta == null ? `animate-pulse` : `` ">
           <div class="text-xl font-bold p-8">
             <span>{{ index + 1 }} </span> -
             <span>{{ secao.plano }}</span>
+            <br>
+            <span class="text-sm font-normal p-8">Risco: {{ secao.risco }}</span>
           </div>
           <div class="text-sm absolute right-0 top-0 p-2 flex flex-row">
             <span class="text-sm right-0 top-0 px-2">Data Inicio: {{ secao.dataInicio != null ? format(secao.dataInicio, 'dd/MM/yyyy HH:mm') : `pendente` }}</span>
