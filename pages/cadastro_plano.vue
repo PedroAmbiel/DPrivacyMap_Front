@@ -5,11 +5,30 @@
     <div class="place-self-start px-10 my-3">
       <Button class="bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
     </div>
-    <div class="relative w-full h-full">
-      <div class="relative bg-[#D9D9D9] rounded-lg p-10 place-self-center">
+    <div class="">
+      <div class=" ">
         <form>
-        <div class="flex flex-col gap-y-10 ">
-          <div class="flex flex-row gap-10 justify-between">
+          <!-- <div class="flex flex-col gap-y-10 "> -->
+          <Stepper value="1">
+            <!-- <StepList>
+                <Step value="1">Área</Step>
+                <Step value="2">Tipo Operação</Step>
+                <Step value="3">Dados Coletados</Step>
+                <Step value="4">Header III</Step>
+                <Step value="5">Header III</Step>
+                <Step value="6">Header III</Step>
+                <Step value="7">Header III</Step>
+                <Step value="8">Header III</Step>
+                <Step value="9">Header III</Step>
+                <Step value="10">Header III</Step>
+                <Step value="11">Header III</Step>
+            </StepList> -->
+          <!-- <StepPanels> -->
+
+          <!-- <div class="flex flex-row gap-10 justify-between"> -->
+          <StepItem value="1">
+          <StepPanel v-slot="{ activateCallback }">
+            <Step>Área</Step>
             <div class="flex flex-col">
               <label for="area" class="text-slate-800 text-2xl text-center">ÁREA</label>
               <Listbox v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" 
@@ -29,7 +48,15 @@
               </template>
             </Listbox>
             </div>
+            <div class="py-6">
+                <Button label="Next" @click="activateCallback('2')" />
+            </div>
+          </StepPanel>
+          </StepItem>
 
+          <StepItem value="2">
+          <StepPanel v-slot="{ activateCallback }">
+            <Step>Tipo Operação</Step>
             <div class="flex flex-col">
               <label for="tipo_operacao" class="text-slate-800 text-2xl text-center">TIPO OPERAÇÃO</label>
               <Listbox v-model:model-value="tipoOperacaoSelecionado" multiple :options="tipoOperacoes" option-label="nome" option-value="nome" 
@@ -49,7 +76,12 @@
                 </template>
               </Listbox>
             </div>
+            </StepPanel>
+            </StepItem>
 
+            <StepItem value="3">
+            <StepPanel v-slot="{ activateCallback }">
+              <Step>Dados Coletados</Step>
             <div class="flex flex-col">
               <label for="dados_coletados" class="text-slate-800 text-2xl text-center">DADOS COLETADOS</label>
               <Listbox id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" multiple :options="dadosColetados" option-label="nome" 
@@ -69,16 +101,20 @@
                 </template>
               </Listbox>
             </div>
+          </StepPanel>
+        </StepItem>
 
             <!-- <div class="flex flex-col">
               <label for="finalidade" class="text-black">Finalidade</label>
               <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/>
             </div> -->
-          </div>
+          <!-- </div> -->
 
-          <div class="flex flex-row justify-between gap-x-10">
-
+          <!-- <div class="flex flex-row justify-between gap-x-10"> -->
+          <StepItem value="4">
+            <StepPanel v-slot="{ activateCallback }">
+              <Step>Finalidade</Step>
             <div class="flex flex-col">
               <label for="finalidade" class="text-slate-800 text-2xl text-center">FINALIDADE</label>
               <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" 
@@ -98,7 +134,12 @@
                 </template>
               </Listbox>
             </div>
+            </StepPanel>
+          </StepItem>
 
+        <StepItem value="5">
+            <StepPanel v-slot="{ activateCallback }">
+              <Step>Revisão</Step>
             <div class="flex flex-col">
               <label for="revisao" class="text-slate-800 text-2xl text-center">REVISÃO</label>
               <Listbox id="revisao" v-model:model-value="revisaoSelecionado" multiple :options="revisao" option-label="nome" 
@@ -118,7 +159,12 @@
                 </template>
               </Listbox>
             </div>
+            </StepPanel>
+          </StepItem>
 
+        <StepItem value="6">
+            <StepPanel v-slot="{ activateCallback }">
+              <Step>Retenção</Step>
             <div class="flex flex-col">
               <label for="retencao" class="text-slate-800 text-2xl text-center">RETENÇÃO</label>
               <Listbox id="retencao" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" 
@@ -138,6 +184,8 @@
                 </template>
               </Listbox>
             </div>
+            </StepPanel>
+          </StepItem>
 
             <!-- <div class="flex flex-col"> -->
               <!-- <label for="seguranca" class="text-black">Segurança</label>
@@ -168,11 +216,13 @@
             </div> -->
 
 
-          </div>
+          <!-- </div> -->
 
-          <div class="flex flex-row justify-around p-10">
+          <!-- <div class="flex flex-row justify-around p-10"> -->
             
-            
+          <StepItem value="7">
+            <StepPanel v-slot="{ activateCallback }" >
+            <Step>Segurança</Step>
             <div class="flex flex-col">
               <!-- <label for="seguranca" class="text-black">Segurança</label>
               <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
@@ -200,7 +250,12 @@
                 <label class="text-black pl-2">N.A.</label>
               </div>
             </div>
+            </StepPanel>
+          </StepItem>
 
+        <StepItem value="8">
+            <StepPanel v-slot="{ activateCallback }">
+              <Step>Armazenamento</Step>
             <div class="flex flex-col">
               <label for="armazenamento" class="text-slate-800 text-2xl">ARMAZENAMENTO</label>
               <div class="flex flex-row">
@@ -220,7 +275,12 @@
                 <label class="text-black pl-2">N.A.</label>
               </div>
             </div>
+            </StepPanel>
+          </StepItem>
 
+        <StepItem value="9">
+            <StepPanel v-slot="{ activateCallback }" >
+              <Step>Exclusão</Step>
             <div class="flex flex-col">
               <label class="text-slate-800 text-2xl">EXCLUSÃO</label>
               <div class="flex flex-row">
@@ -232,6 +292,8 @@
                 <label class="text-black pl-2">Não</label>
               </div>
             </div>
+            </StepPanel>
+          </StepItem>
 
             <!-- <div class="flex flex-col">
               <label class="text-slate-800 text-2xl ">COMPARTILHAMENTO À TERCEIROS</label>
@@ -257,10 +319,12 @@
               </div>
             </div> -->
 
-          </div>
+          <!-- </div> -->
 
-          <div class="flex flex-row justify-around p-10">
-
+          <!-- <div class="flex flex-row justify-around p-10"> -->
+          <StepItem value="10">
+            <StepPanel v-slot="{ activateCallback }">
+              <Step>Compartilhamento à terceiros</Step>
             <div class="flex flex-col">
               <label class="text-slate-800 text-2xl ">COMPARTILHAMENTO À TERCEIROS</label>
               <div class="flex flex-row">
@@ -272,7 +336,12 @@
                 <label class="text-black pl-2">Não</label>
               </div>
             </div>
+          </StepPanel>
+        </StepItem>
 
+      <StepItem value="11">
+          <StepPanel v-slot="{ activateCallback }">
+            <Step>Transferência Internacional</Step>
             <div class="flex flex-col">
               <label for="transferencia_internacional" class="text-slate-800 text-2xl">TRANSFERÊNCIA INTERNACIONAL</label>
               <div class="flex flex-row">
@@ -284,8 +353,10 @@
                 <label class="text-black pl-2">Não</label>
               </div>
             </div>
+          </StepPanel>
+        </StepItem>
 
-          </div>
+          <!-- </div> -->
 
           <!-- <div class="flex flex-row justify-between">
 
@@ -296,16 +367,17 @@
             <InputText id="area">
             </InputText>
           </div> -->
+        <!-- </StepPanels> -->
+        </Stepper>
 
-
-          <div class="pt-3 flex flex-row gap-x-3">
-            <Button value="Salvar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="salvarFicha()">
-              SALVAR
-            </Button>
-            <Button value="Salvar e Enviar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="finalizarEnviarFicha()">
-              SALVAR E ENVIAR
-            </Button>
-          </div>
+        <!-- </div> -->
+        <div class="pt-3 flex flex-row gap-x-3">
+          <Button value="Salvar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="salvarFicha()">
+            SALVAR
+          </Button>
+          <Button value="Salvar e Enviar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="finalizarEnviarFicha()">
+            SALVAR E ENVIAR
+          </Button>
         </div>
         </form>
       </div>
