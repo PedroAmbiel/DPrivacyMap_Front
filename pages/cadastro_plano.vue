@@ -1,105 +1,151 @@
 <template>
-  <div class="bg-slate-100">
+  <div class="bg-white relative h-full">
     <Toast />
     <TopNavBar/>
     <div class="place-self-start px-10 my-3">
       <Button class="bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
     </div>
-    <div class="">
-      <div class=" ">
-        <form>
-          <!-- <div class="flex flex-col gap-y-10 "> -->
-          <Stepper value="1">
-            <!-- <StepList>
-                <Step value="1">Área</Step>
-                <Step value="2">Tipo Operação</Step>
-                <Step value="3">Dados Coletados</Step>
-                <Step value="4">Header III</Step>
-                <Step value="5">Header III</Step>
-                <Step value="6">Header III</Step>
-                <Step value="7">Header III</Step>
-                <Step value="8">Header III</Step>
-                <Step value="9">Header III</Step>
-                <Step value="10">Header III</Step>
-                <Step value="11">Header III</Step>
-            </StepList> -->
-          <!-- <StepPanels> -->
+    <div>
+      <div class="text-black">
 
-          <!-- <div class="flex flex-row gap-10 justify-between"> -->
+        <form>
+          <Stepper class="p-10" v-model:value="activeStep">
+          
           <StepItem value="1">
-          <StepPanel v-slot="{ activateCallback }">
-            <Step>Área</Step>
-            <div class="flex flex-col">
-              <label for="area" class="text-slate-800 text-2xl text-center">ÁREA</label>
-              <Listbox v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" 
-              placeholder="Área de Atuação"
-              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl ">
-              <template #option="slotProps">
-                <div
-                  :class="[
-                    'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
-                    slotProps.selected
-                      ? 'bg-white text-black w-full h-full'
-                      : 'hover:bg-white text-black w-full h-full'
-                  ]"
-                >
-                  {{ slotProps.option.nome }}
-                </div>
-              </template>
-            </Listbox>
-            </div>
-            <div class="py-6">
-                <Button label="Next" @click="activateCallback('2')" />
-            </div>
-          </StepPanel>
+            <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '1') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (areaSelecionada != null 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">
+              Área
+            </Step>
+            <StepPanel v-slot="{ activateCallback, value }" pt:root:class="!bg-white">
+              <div class="border-none bg-surface-50 mt-10 w-2/4
+                dark:bg-surface-950 flex-col flex justify-start items-start font-medium ">
+                <!-- <label for="area" class="text-slate-800 text-2xl text-center">ÁREA</label> -->
+                <Listbox v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" 
+                  fluid listStyle="max-height:1000px"
+                  placeholder="Área de Atuação"
+                  class="w-full border-none rounded-none bg-white shadow-none">
+                    <template #option="slotProps">
+                      <div
+                        :class="[
+                          'cursor-pointer px-3 py-2 rounded-md duration-150',
+                          slotProps.selected
+                            ? 'bg-white text-black w-full h-full'
+                            : 'hover:bg-white hover:underline text-black w-full h-full'
+                        ]"
+                      >
+                        <i class="pi pi-circle" v-if="areaSelecionada != slotProps.option.nome"/> <i v-else class="pi pi-circle-fill" />
+                        {{ slotProps.option.nome }}
+                      </div>
+                    </template>
+                </Listbox>
+              </div>
+              <div class="py-6">
+                <Button label="Próximo" @click="activateCallback('2'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all" />
+              </div>
+            </StepPanel>
           </StepItem>
 
           <StepItem value="2">
-          <StepPanel v-slot="{ activateCallback }">
-            <Step>Tipo Operação</Step>
-            <div class="flex flex-col">
-              <label for="tipo_operacao" class="text-slate-800 text-2xl text-center">TIPO OPERAÇÃO</label>
+            <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '2') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (tipoOperacaoSelecionado != null && tipoOperacaoSelecionado.length != 0
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">
+              Tipo Operação
+              </Step>
+          <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="border-none bg-surface-50 mt-10 w-2/4
+                dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox v-model:model-value="tipoOperacaoSelecionado" multiple :options="tipoOperacoes" option-label="nome" option-value="nome" 
               id="tipo_operacao" placeholder="Selecione"
-              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
-                <template #option="slotProps">
-                  <div
-                    :class="[
-                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
-                      slotProps.selected
-                        ? 'bg-white text-black w-full h-full'
-                        : 'hover:bg-white text-black w-full h-full'
-                    ]"
-                  >
-                    {{ slotProps.option.nome }}
-                  </div>
-                </template>
+              fluid listStyle="max-height:1000px"
+              class="w-full border-none rounded-none bg-white shadow-none">
+                    <template #option="slotProps">
+                      <div
+                        :class="[
+                          'cursor-pointer px-3 py-2 rounded-md duration-150',
+                          slotProps.selected
+                            ? 'bg-white text-black w-full h-full'
+                            : 'hover:bg-white hover:underline text-black w-full h-full'
+                        ]"
+                      >
+                        <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
+                        {{ slotProps.option.nome }}
+                      </div>
+                    </template>
               </Listbox>
+            </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click=" activateCallback('1'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click=" activateCallback('3'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
             </div>
             </StepPanel>
             </StepItem>
 
-            <StepItem value="3">
-            <StepPanel v-slot="{ activateCallback }">
-              <Step>Dados Coletados</Step>
-            <div class="flex flex-col">
-              <label for="dados_coletados" class="text-slate-800 text-2xl text-center">DADOS COLETADOS</label>
+            <StepItem value="3" >
+              <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '3') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (dadosColetadosSelecionado != null && dadosColetadosSelecionado.length != 0 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Dados Coletados</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="border-none bg-surface-50 mt-10 w-2/4
+              dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" multiple :options="dadosColetados" option-label="nome" 
               option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
-                <template #option="slotProps">
-                  <div
-                    :class="[
-                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
-                      slotProps.selected
-                        ? 'bg-white text-black w-full h-full'
-                        : 'hover:bg-white text-black w-full h-full'
-                    ]"
-                  >
-                    {{ slotProps.option.nome }}
-                  </div>
-                </template>
+              fluid listStyle="max-height:1000px"
+              class="w-full border-none rounded-none bg-white shadow-none">
+                    <template #option="slotProps">
+                      <div
+                        :class="[
+                          'cursor-pointer px-3 py-2 rounded-md duration-150',
+                          slotProps.selected
+                            ? 'bg-white text-black w-full h-full'
+                            : 'hover:bg-white hover:underline text-black w-full h-full'
+                        ]"
+                      >
+                      <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
+                        {{ slotProps.option.nome }}
+                      </div>
+                    </template>
               </Listbox>
+            </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('2'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('4'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
             </div>
           </StepPanel>
         </StepItem>
@@ -113,76 +159,136 @@
 
           <!-- <div class="flex flex-row justify-between gap-x-10"> -->
           <StepItem value="4">
-            <StepPanel v-slot="{ activateCallback }">
-              <Step>Finalidade</Step>
-            <div class="flex flex-col">
-              <label for="finalidade" class="text-slate-800 text-2xl text-center">FINALIDADE</label>
+            <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '4') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (finalidadeSelecionado != null && finalidadeSelecionado.length != 0 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Finalidade</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="border-none bg-surface-50 mt-10 w-2/4
+              dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" 
               option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
-                <template #option="slotProps">
-                  <div
-                    :class="[
-                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
-                      slotProps.selected
-                        ? 'bg-white text-black w-full h-full'
-                        : 'hover:bg-white text-black w-full h-full'
-                    ]"
-                  >
-                    {{ slotProps.option.nome }}
-                  </div>
-                </template>
+              fluid listStyle="max-height:1000px"
+              class="w-full border-none rounded-none bg-white shadow-none">
+                    <template #option="slotProps">
+                      <div
+                        :class="[
+                          'cursor-pointer px-3 py-2 rounded-md duration-150',
+                          slotProps.selected
+                            ? 'bg-white text-black w-full h-full'
+                            : 'hover:bg-white hover:underline text-black w-full h-full'
+                        ]"
+                      >
+                      <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
+                        {{ slotProps.option.nome }}
+                      </div>
+                    </template>
               </Listbox>
+            </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('3'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('5');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
             </div>
             </StepPanel>
           </StepItem>
 
         <StepItem value="5">
-            <StepPanel v-slot="{ activateCallback }">
-              <Step>Revisão</Step>
-            <div class="flex flex-col">
-              <label for="revisao" class="text-slate-800 text-2xl text-center">REVISÃO</label>
+          <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '5') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (revisaoSelecionado != null && revisaoSelecionado.length != 0 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Revisão</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="border-none bg-surface-50 mt-10 w-2/4
+              dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="revisao" v-model:model-value="revisaoSelecionado" multiple :options="revisao" option-label="nome" 
               option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
-                <template #option="slotProps">
-                  <div
-                    :class="[
-                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
-                      slotProps.selected
-                        ? 'bg-white text-black w-full h-full'
-                        : 'hover:bg-white text-black w-full h-full'
-                    ]"
-                  >
-                    {{ slotProps.option.nome }}
-                  </div>
-                </template>
+              fluid listStyle="max-height:1000px"
+              class="w-full border-none rounded-none bg-white shadow-none">
+                    <template #option="slotProps">
+                      <div
+                        :class="[
+                          'cursor-pointer px-3 py-2 rounded-md duration-150',
+                          slotProps.selected
+                            ? 'bg-white text-black w-full h-full'
+                            : 'hover:bg-white hover:underline text-black w-full h-full'
+                        ]"
+                      >
+                        <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
+                        {{ slotProps.option.nome }}
+                      </div>
+                    </template>
               </Listbox>
+            </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('4'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('6'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
             </div>
             </StepPanel>
           </StepItem>
 
         <StepItem value="6">
-            <StepPanel v-slot="{ activateCallback }">
-              <Step>Retenção</Step>
-            <div class="flex flex-col">
-              <label for="retencao" class="text-slate-800 text-2xl text-center">RETENÇÃO</label>
+          <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '6') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (retencaoSelecionado != null && retencaoSelecionado.length != 0 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Retenção</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="border-none bg-surface-50 mt-10 w-2/4
+              dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="retencao" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" 
               option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80 bg-[#D9D9D9] border-none custom-listbox shadow-2xl">
-                <template #option="slotProps">
-                  <div
-                    :class="[
-                      'cursor-pointer px-3 py-2 rounded-md transition-colors duration-150',
-                      slotProps.selected
-                        ? 'bg-white text-black w-full h-full'
-                        : 'hover:bg-white text-black w-full h-full'
-                    ]"
-                  >
-                    {{ slotProps.option.nome }}
-                  </div>
-                </template>
+              fluid listStyle="max-height:1000px"
+              class="w-full border-none rounded-none bg-white shadow-none">
+                    <template #option="slotProps">
+                      <div
+                        :class="[
+                          'cursor-pointer px-3 py-2 rounded-md duration-150',
+                          slotProps.selected
+                            ? 'bg-white text-black w-full h-full'
+                            : 'hover:bg-white hover:underline text-black w-full h-full'
+                        ]"
+                      >
+                        <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
+                        {{ slotProps.option.nome }}
+                      </div>
+                    </template>
               </Listbox>
+            </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('5');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('7');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
             </div>
             </StepPanel>
           </StepItem>
@@ -221,14 +327,26 @@
           <!-- <div class="flex flex-row justify-around p-10"> -->
             
           <StepItem value="7">
-            <StepPanel v-slot="{ activateCallback }" >
-            <Step>Segurança</Step>
-            <div class="flex flex-col">
+            <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '7') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (segurancaSelecionado != null 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Segurança</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="flex flex-col py-10">
               <!-- <label for="seguranca" class="text-black">Segurança</label>
               <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
               class="w-full md:w-80"/> -->
-              
-              <label for="seguranca" class="text-slate-800 text-2xl">SEGURANÇA</label>
               <div class="flex flex-row">
                 <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Exclusão de E-mails" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Exclusão de E-mails</label>
@@ -250,14 +368,31 @@
                 <label class="text-black pl-2">N.A.</label>
               </div>
             </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('6'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('8');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+            </div>
             </StepPanel>
           </StepItem>
 
         <StepItem value="8">
-            <StepPanel v-slot="{ activateCallback }">
-              <Step>Armazenamento</Step>
-            <div class="flex flex-col">
-              <label for="armazenamento" class="text-slate-800 text-2xl">ARMAZENAMENTO</label>
+          <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '8') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (armazenamento != null 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Armazenamento</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="flex flex-col py-10">
               <div class="flex flex-row">
                 <RadioButton v-model="armazenamento" inputId="armazenamento" name="armazenamento" value="Físico" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Físico</label>
@@ -275,14 +410,32 @@
                 <label class="text-black pl-2">N.A.</label>
               </div>
             </div>
+
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('7');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('9'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+            </div>
             </StepPanel>
           </StepItem>
 
         <StepItem value="9">
-            <StepPanel v-slot="{ activateCallback }" >
-              <Step>Exclusão</Step>
-            <div class="flex flex-col">
-              <label class="text-slate-800 text-2xl">EXCLUSÃO</label>
+          <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '9') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (exclusao != null 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Exclusão</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="flex flex-col py-10">
               <div class="flex flex-row">
                 <RadioButton v-model="exclusao" inputId="exclusao" name="exclusao" :value="true" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Sim</label>
@@ -291,6 +444,10 @@
                 <RadioButton v-model="exclusao" inputId="exclusao" name="exclusao" :value="false" pt:box:class="!bg-white" />
                 <label class="text-black pl-2">Não</label>
               </div>
+            </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('8'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('10');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
             </div>
             </StepPanel>
           </StepItem>
@@ -323,10 +480,23 @@
 
           <!-- <div class="flex flex-row justify-around p-10"> -->
           <StepItem value="10">
-            <StepPanel v-slot="{ activateCallback }">
-              <Step>Compartilhamento à terceiros</Step>
-            <div class="flex flex-col">
-              <label class="text-slate-800 text-2xl ">COMPARTILHAMENTO À TERCEIROS</label>
+            <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '10') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (compartilhamentoTerceiros != null 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Compartilhamento à terceiros</Step>
+            <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+            <div class="flex flex-col py-10">
               <div class="flex flex-row">
                 <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="true" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Sim</label>
@@ -336,25 +506,45 @@
                 <label class="text-black pl-2">Não</label>
               </div>
             </div>
+            <div class="py-6 flex flex-row gap-4">
+              <Button label="Voltar" @click="activateCallback('9'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+              <Button label="Próximo" @click="activateCallback('11');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+            </div>
           </StepPanel>
         </StepItem>
 
       <StepItem value="11">
-          <StepPanel v-slot="{ activateCallback }">
-            <Step>Transferência Internacional</Step>
-            <div class="flex flex-col">
-              <label for="transferencia_internacional" class="text-slate-800 text-2xl">TRANSFERÊNCIA INTERNACIONAL</label>
-              <div class="flex flex-row">
-                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="true" pt:box:class="!bg-white"/>
-                <label class="text-black pl-2">Sim</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="false" pt:box:class="!bg-white" />
-                <label class="text-black pl-2">Não</label>
-              </div>
+        <Step 
+              :pt="{
+                number: {
+                  class: [
+                    (activeStep == '11') 
+                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      : (transferenciaInternacional != null 
+                          ? 'bg-green-400 text-black border-none' 
+                          : 'bg-red-400 text-black border-none')
+                  ]
+                },
+                title: {
+                  class: 'text-black text-xl'
+                }
+              }">Transferência Internacional</Step>
+        <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
+          <div class="flex flex-col py-10">
+            <div class="flex flex-row">
+              <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="true" pt:box:class="!bg-white"/>
+              <label class="text-black pl-2">Sim</label>
             </div>
-          </StepPanel>
-        </StepItem>
+            <div class="flex flex-row">
+              <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="false" pt:box:class="!bg-white" />
+              <label class="text-black pl-2">Não</label>
+            </div>
+          </div>
+          <div class="py-6">
+            <Button label="Voltar" @click="activateCallback('10');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
+          </div>
+        </StepPanel>
+      </StepItem>
 
           <!-- </div> -->
 
@@ -368,17 +558,17 @@
             </InputText>
           </div> -->
         <!-- </StepPanels> -->
-        </Stepper>
-
-        <!-- </div> -->
-        <div class="pt-3 flex flex-row gap-x-3">
-          <Button value="Salvar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="salvarFicha()">
-            SALVAR
-          </Button>
-          <Button value="Salvar e Enviar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="finalizarEnviarFicha()">
-            SALVAR E ENVIAR
-          </Button>
-        </div>
+        
+      <!-- </div> -->
+            <div class="pt-3 flex flex-row gap-x-3">
+              <Button value="Salvar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="salvarFicha()">
+                SALVAR
+              </Button>
+              <Button value="Salvar e Enviar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="finalizarEnviarFicha()">
+                SALVAR E ENVIAR
+              </Button>
+            </div>
+          </Stepper>
         </form>
       </div>
 
@@ -393,6 +583,7 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 
   const toast = useToast()
   const route = useRoute();
+  const activeStep = ref('1')
 
   onMounted(async () =>{
     if(route.query.idFicha){
@@ -428,24 +619,24 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 
   const finalidadeSelecionado = ref(null)
   const finalidade = [
-    {nome: 'Outros', value: 'Outros'},
     {nome: 'Contratos e Relação Comercial', value: 'Contratos e Relação Comercial'},
     {nome: 'Cadastro de Prestadores de Serviços e/ou Fornecedores no Sistema da Empresa', value: 'Cadastro de Prestadores de Serviços e/ou Fornecedores no Sistema da Empresa'},
     {nome: 'Oportunidade de Emprego', value: 'Oportunidade de Emprego'},
     {nome: 'Pesquisas comerciais', value: 'Pesquisas comerciais'},
     {nome: 'Análise de Crédito', value: 'Análise de Crédito'},
     {nome: 'Realização de eventos', value: 'Realização de eventos'},
+    {nome: 'Outros', value: 'Outros'},
   ]
 
   const revisaoSelecionado = ref(null)
   const revisao = [
-    {nome: 'N.A.', value: 'N.A.'},
-    {nome: 'Anualmente', value: 'Anualmente'},
     {nome: 'Revisão feita sobre a demanda do candidato', value: 'Revisão feita sobre a demanda do candidato'},
-    {nome: 'Trimestralmente', value: 'Trimestralmente'},
-    {nome: 'Mensalmente', value: 'Mensalmente'},
     {nome: 'Semanalmente', value: 'Semanalmente'},
+    {nome: 'Mensalmente', value: 'Mensalmente'},
+    {nome: 'Trimestralmente', value: 'Trimestralmente'},
     {nome: 'Semestralmente', value: 'Semestralmente'},
+    {nome: 'Anualmente', value: 'Anualmente'},
+    {nome: 'N.A.', value: 'N.A.'},
   ]
 
   const retencaoSelecionado = ref(null)
@@ -454,8 +645,8 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
     {nome: 'Entre 1 e 3 meses', value: 'Entre 1 e 3 meses'},
     {nome: 'Até 1 mês', value: 'Até 1 mês'},
     {nome: 'Entre 6 meses e 1 ano', value: 'Entre 6 meses e 1 ano'},
-    {nome: 'N.A.', value: 'N.A.'},
     {nome: 'Entre 3 e 6 meses', value: 'Entre 3 e 6 meses'},
+    {nome: 'N.A.', value: 'N.A.'},
   ]
 
   const segurancaSelecionado = ref(null)
@@ -771,7 +962,7 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 
 .p-listbox-option:hover {
   background-color: white !important;
-  color: inherit !important;
+  color: black !important;
 }
 
 .p-focus {

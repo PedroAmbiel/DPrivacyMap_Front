@@ -14,13 +14,13 @@
         <div v-if="planosPendentes == 'E'" class="text-black text-2xl text-center p-5" > Nenhum plano pendente de finalização </div>
         <div v-if="planosPendentes != 'E'" v-for="item in planosPendentes" class="text-black text-center hover:bg-[#D9D9D9] 
           hover:cursor-pointer rounded-lg p-5 " @click="selecionarFicha(item)" >
-            Id: <span>{{ item.id }}</span>
+            <!-- Id: <span>{{ item.id }}</span>
+            <br> -->
+            <span class="font-bold text-xl" v-if="item.area != null">{{ item.area }}</span> <span class="font-bold text-xl" v-else> Não Informado</span>
             <br>
-            Área: <span v-if="item.area != null">{{ item.area }}</span> <span v-else> Não Informado</span>
+            <span v-if="item.finalizado == false">Status:  Redigindo </span>
             <br>
-            Status: <span v-if="item.finalizado == false"> Redigindo </span>
-            <br>
-            Data Cadastro: <span>{{ format(item.dataCadastro, 'dd/MM/yyyy HH:mm') }}</span>
+            <span>Data Cadastro: {{ format(item.dataCadastro, 'dd/MM/yyyy HH:mm') }}</span>
         </div>
       </div>
     
