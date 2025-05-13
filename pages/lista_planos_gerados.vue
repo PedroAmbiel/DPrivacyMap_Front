@@ -3,7 +3,7 @@
   <TopNavBar/>
   <div class="flex h-screen text-black">
     <div class="w-1/3 bg-gray-100 p-4 overflow-auto">
-      <h2 class="text-xl font-semibold mb-4">Fichas Concluidas</h2>
+      <h2 class="text-xl font-semibold mb-4 text-center">Fichas Concluidas</h2>
       <ul class="space-y-2" v-if="fichasConcluidas != undefined && fichasConcluidas != 'E'">
         <li
           v-for="item in fichasConcluidas"
@@ -46,7 +46,7 @@
       <p class="text-gray-500" v-if="secoes == undefined || secoes == 'E'">Selecione um plano para visualizar!</p>
       <ul>
         <li v-for="(secao, index) in secoes" class="p-2 px-5 bg-white  rounded relative">
-        <BlockUI :blocked="secao.resposta == null" :class="secao.resposta == null ? `animate-pulse` : `` ">
+        <BlockUI :blocked="secao.resposta == null" :class="secao.resposta == null ? `animate-pulse` : `` " class="relative">
           <div class="text-xl font-bold p-8">
             <span>{{ index + 1 }} </span> -
             <span>{{ secao.plano }}</span>
