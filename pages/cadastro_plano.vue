@@ -3,7 +3,7 @@
     <Toast />
     <TopNavBar/>
     <div class="place-self-start px-10 my-3">
-      <Button class="bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
+      <Button class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('home')">Voltar</Button>
     </div>
     <div>
       <div class="text-black">
@@ -30,7 +30,7 @@
               Área
             </Step>
             <StepPanel v-slot="{ activateCallback, value }" pt:root:class="!bg-white">
-              <div class="border-none bg-surface-50 mt-10 w-2/4
+              <div class="border-none bg-surface-50 mt-10 w-full
                 dark:bg-surface-950 flex-col flex justify-start items-start font-medium ">
                 <!-- <label for="area" class="text-slate-800 text-2xl text-center">ÁREA</label> -->
                 <Listbox v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" 
@@ -49,6 +49,9 @@
                         <i class="pi pi-circle" v-if="areaSelecionada != slotProps.option.nome"/> <i v-else class="pi pi-circle-fill" />
                         {{ slotProps.option.nome }}
                       </div>
+                    </template>
+                    <template #content>
+
                     </template>
                 </Listbox>
               </div>
@@ -77,7 +80,7 @@
               Tipo Operação
               </Step>
           <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-2/4
+            <div class="border-none bg-surface-50 mt-10 w-full
                 dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox v-model:model-value="tipoOperacaoSelecionado" multiple :options="tipoOperacoes" option-label="nome" option-value="nome" 
               id="tipo_operacao" placeholder="Selecione"
@@ -122,7 +125,7 @@
                 }
               }">Dados Coletados</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-2/4
+            <div class="border-none bg-surface-50 mt-10 w-full
               dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="dados_coletados" v-model:model-value="dadosColetadosSelecionado" multiple :options="dadosColetados" option-label="nome" 
               option-value="nome" placeholder="Selecione"
@@ -175,7 +178,7 @@
                 }
               }">Finalidade</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-2/4
+            <div class="border-none bg-surface-50 mt-10 w-full
               dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" 
               option-value="nome" placeholder="Selecione"
@@ -220,7 +223,7 @@
                 }
               }">Revisão</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-2/4
+            <div class="border-none bg-surface-50 mt-10 w-full
               dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="revisao" v-model:model-value="revisaoSelecionado" multiple :options="revisao" option-label="nome" 
               option-value="nome" placeholder="Selecione"
@@ -265,7 +268,7 @@
                 }
               }">Retenção</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-2/4
+            <div class="border-none bg-surface-50 mt-10 w-full
               dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="retencao" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" 
               option-value="nome" placeholder="Selecione"
@@ -560,11 +563,11 @@
         <!-- </StepPanels> -->
         
       <!-- </div> -->
-            <div class="pt-3 flex flex-row gap-x-3">
-              <Button value="Salvar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="salvarFicha()">
+            <div class="pt-12 flex flex-row gap-x-3">
+              <Button value="Salvar" class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none font-bold" @click="salvarFicha()">
                 SALVAR
               </Button>
-              <Button value="Salvar e Enviar" class="font-bold bg-[#da9c9c] border-none hover:!bg-[#bb8383] hover:!border-none" @click="finalizarEnviarFicha()">
+              <Button value="Salvar e Enviar" class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none font-bold" @click="finalizarEnviarFicha()">
                 SALVAR E ENVIAR
               </Button>
             </div>
@@ -795,7 +798,7 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
               }, 
             })
 
-            useRouter().push('/home')
+            useRouter().push('/home?sucesso=true')
           }
         },
   
@@ -829,7 +832,7 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
       onResponse({request, response, options}){
         if(response.status == 200){
           toast.add({severity: 'success', summary: response._data, life: 5000})
-          useRouter().push("/home")
+          useRouter().push("/home?sucesso=true")
         }
       },
 
@@ -954,18 +957,32 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 
 </script>
 
-<style>
-.p-listbox-option-selected {
+<style scoped>
+
+/* Grid layout for 4 columns that auto-fit content width */
+::v-deep(.p-listbox-list) {
+  @apply grid gap-4;
+  grid-template-columns: repeat(3, max-content); /* Each column sizes to fit its content */
+  justify-content: start; /* Prevent full-width stretching */
+}
+
+/* Individual listbox items */
+::v-deep(.p-listbox-item) {
+  @apply flex items-center p-2 border rounded cursor-pointer whitespace-nowrap;
+}
+
+
+::v-deep(.p-listbox-option-selected) {
   background-color: transparent !important;
   color: inherit !important;
 }
 
-.p-listbox-option:hover {
+::v-deep(.p-listbox-option:hover) {
   background-color: white !important;
   color: black !important;
 }
 
-.p-focus {
+::v-deep(.p-focus) {
   background-color: white !important;
   color: inherit !important;
 }
