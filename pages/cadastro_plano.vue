@@ -653,22 +653,8 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
   ]
 
   const segurancaSelecionado = ref(null)
-  // const seguranca = [
-  //   {nome: 'Exclusão de E-mails', value: 'Exclusão de E-mails'},
-  //   {nome: 'Outros', value: 'Outros'},
-  //   {nome: 'Limitação de Acesso', value: 'Limitação de Acesso'},
-  //   {nome: 'Limitação de acesso e Exclusão de E-mails', value: 'Limitação de acesso e Exclusão de E-mails'},
-  //   {nome: 'N.A.', value: 'N.A.'},
-  // ]
 
   const armazenamento = ref(null)
-  // const armazenamento = [
-  //   {nome: 'Físico', value: 'Físico'},
-  //   {nome: 'Digital', value: 'Digital'},
-  //   {nome: 'Digital e Físico', value: 'Digital e Físico'},
-  //   {nome: 'N.A.', value: 'N.A.'},
-  // ]
-
   const exclusao = ref(null)
 
   const compartilhamentoTerceiros = ref(null)
@@ -693,74 +679,74 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
   function validarPreenchimento(){
     //CHECANDO SE TODOS OS CAMPOS FORAM PREENCHIDOS
     let valido = true
-    console.log(tipoOperacaoSelecionado.value)
-    console.log(areaSelecionada.value)
-    console.log(dadosColetadosSelecionado.value)
-    console.log(finalidadeSelecionado.value)
-    console.log(revisaoSelecionado.value)
-    console.log(retencaoSelecionado.value)
-    console.log(segurancaSelecionado.value)
-    console.log(armazenamento.value)
-    console.log(exclusao.value)
-    console.log(compartilhamentoTerceiros.value)
-    console.log(transferenciaInternacional.value)
+    // console.log(tipoOperacaoSelecionado.value)
+    // console.log(areaSelecionada.value)
+    // console.log(dadosColetadosSelecionado.value)
+    // console.log(finalidadeSelecionado.value)
+    // console.log(revisaoSelecionado.value)
+    // console.log(retencaoSelecionado.value)
+    // console.log(segurancaSelecionado.value)
+    // console.log(armazenamento.value)
+    // console.log(exclusao.value)
+    // console.log(compartilhamentoTerceiros.value)
+    // console.log(transferenciaInternacional.value)
     if(tipoOperacaoSelecionado.value == '' || tipoOperacaoSelecionado.value == null){
-      alert("ENTROU 1")
+      // alert("ENTROU 1")
       valido = false
     }
 
     else if(areaSelecionada.value == '' || areaSelecionada.value == null){
-      alert("ENTROU 2")
+      // alert("ENTROU 2")
       valido = false
     }
 
     else if(dadosColetadosSelecionado.value == '' || dadosColetadosSelecionado.value == null){
-      alert("ENTROU 3")
+      // alert("ENTROU 3")
       valido = false
     }
 
     else if(finalidadeSelecionado.value == '' || finalidadeSelecionado.value == null){
-      alert("ENTROU 4")
+      // alert("ENTROU 4")
       valido = false
     }
 
     else if(revisaoSelecionado.value == '' || revisaoSelecionado.value == null){
-      alert("ENTROU 5")
+      // alert("ENTROU 5")
       valido = false
     }
 
     else if(retencaoSelecionado.value == '' || retencaoSelecionado.value == null){
-      alert("ENTROU 6")
+      // alert("ENTROU 6")
       valido = false
     }
 
     else if(segurancaSelecionado.value == '' || segurancaSelecionado.value == null){
-      alert("ENTROU 7")
+      // alert("ENTROU 7")
       valido = false
     }
 
     else if(armazenamento.value == '' || armazenamento.value == null){
-      alert("ENTROU 8")
+      // alert("ENTROU 8")
       valido = false
     }
 
     else if(exclusao.value == null){
-      alert("ENTROU 9")
+      // alert("ENTROU 9")
       valido = false
     }
 
     else if(compartilhamentoTerceiros.value == null){
-      alert("ENTROU 10")
+      // alert("ENTROU 10")
       valido = false
     }
 
     else if(transferenciaInternacional.value == null){
-      alert("ENTROU 11")
+      // alert("ENTROU 11")
       valido = false
     }
 
     if(valido == false){
-      toast.add({severity: 'error', summary: 'Erro: ' + 'Preencha todos os campos', life: 3000})
+      toast.add({severity: 'error', summary: 'Erro: Preencha todos os campos', life: 3000})
     }
 
     return valido
