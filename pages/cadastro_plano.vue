@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-white relative h-full">
+  <div class="bg-white h-full">
     <Toast />
     <TopNavBar/>
-    <div class="place-self-start px-10 my-3">
-      <Button class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none mr-32 w-full font-bold" @click="useRouter().push('home')">Voltar</Button>
+    <div class="place-self-start px-10">
+      <Button class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none mr-32 mt-24 w-full font-bold" @click="useRouter().push('lista_planos')">Voltar</Button>
     </div>
     <div>
       <div class="text-black">
@@ -17,7 +17,7 @@
                 number: {
                   class: [
                     (activeStep == '1') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (areaSelecionada != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -67,7 +67,7 @@
                 number: {
                   class: [
                     (activeStep == '2') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (tipoOperacaoSelecionado != null && tipoOperacaoSelecionado.length != 0
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -114,7 +114,7 @@
                 number: {
                   class: [
                     (activeStep == '3') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (dadosColetadosSelecionado != null && dadosColetadosSelecionado.length != 0 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -167,7 +167,7 @@
                 number: {
                   class: [
                     (activeStep == '4') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (finalidadeSelecionado != null && finalidadeSelecionado.length != 0 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -212,7 +212,7 @@
                 number: {
                   class: [
                     (activeStep == '5') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (revisaoSelecionado != null && revisaoSelecionado.length != 0 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -257,7 +257,7 @@
                 number: {
                   class: [
                     (activeStep == '6') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (retencaoSelecionado != null && retencaoSelecionado.length != 0 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -335,7 +335,7 @@
                 number: {
                   class: [
                     (activeStep == '7') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (segurancaSelecionado != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -384,7 +384,7 @@
                 number: {
                   class: [
                     (activeStep == '8') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (armazenamento != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -427,7 +427,7 @@
                 number: {
                   class: [
                     (activeStep == '9') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (exclusao != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -488,7 +488,7 @@
                 number: {
                   class: [
                     (activeStep == '10') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (compartilhamentoTerceiros != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -522,7 +522,7 @@
                 number: {
                   class: [
                     (activeStep == '11') 
-                      ? '!bg-gray-200 !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' // custom color when active
                       : (transferenciaInternacional != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -565,10 +565,10 @@
       <!-- </div> -->
             <div class="pt-12 flex flex-row gap-x-3">
               <Button value="Salvar" class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none font-bold" @click="salvarFicha()">
-                SALVAR
+                Salvar
               </Button>
               <Button value="Salvar e Enviar" class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none font-bold" @click="finalizarEnviarFicha()">
-                SALVAR E ENVIAR
+                Salvar e Finalizar
               </Button>
             </div>
           </Stepper>
@@ -679,69 +679,48 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
   function validarPreenchimento(){
     //CHECANDO SE TODOS OS CAMPOS FORAM PREENCHIDOS
     let valido = true
-    // console.log(tipoOperacaoSelecionado.value)
-    // console.log(areaSelecionada.value)
-    // console.log(dadosColetadosSelecionado.value)
-    // console.log(finalidadeSelecionado.value)
-    // console.log(revisaoSelecionado.value)
-    // console.log(retencaoSelecionado.value)
-    // console.log(segurancaSelecionado.value)
-    // console.log(armazenamento.value)
-    // console.log(exclusao.value)
-    // console.log(compartilhamentoTerceiros.value)
-    // console.log(transferenciaInternacional.value)
+
     if(tipoOperacaoSelecionado.value == '' || tipoOperacaoSelecionado.value == null){
-      // alert("ENTROU 1")
       valido = false
     }
 
     else if(areaSelecionada.value == '' || areaSelecionada.value == null){
-      // alert("ENTROU 2")
       valido = false
     }
 
     else if(dadosColetadosSelecionado.value == '' || dadosColetadosSelecionado.value == null){
-      // alert("ENTROU 3")
       valido = false
     }
 
     else if(finalidadeSelecionado.value == '' || finalidadeSelecionado.value == null){
-      // alert("ENTROU 4")
       valido = false
     }
 
     else if(revisaoSelecionado.value == '' || revisaoSelecionado.value == null){
-      // alert("ENTROU 5")
       valido = false
     }
 
     else if(retencaoSelecionado.value == '' || retencaoSelecionado.value == null){
-      // alert("ENTROU 6")
       valido = false
     }
 
     else if(segurancaSelecionado.value == '' || segurancaSelecionado.value == null){
-      // alert("ENTROU 7")
       valido = false
     }
 
     else if(armazenamento.value == '' || armazenamento.value == null){
-      // alert("ENTROU 8")
       valido = false
     }
 
     else if(exclusao.value == null){
-      // alert("ENTROU 9")
       valido = false
     }
 
     else if(compartilhamentoTerceiros.value == null){
-      // alert("ENTROU 10")
       valido = false
     }
 
     else if(transferenciaInternacional.value == null){
-      // alert("ENTROU 11")
       valido = false
     }
 
@@ -797,6 +776,8 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
   }
 
   async function salvarFicha(){
+    validarPreenchimento()
+
     await useFetch('http://localhost:8000/atualizar_ficha', {
       method: 'PUT',
       body:{
@@ -860,7 +841,6 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
             areaSelecionada.value = y.nome
         }
       });
-      // areaSelecionada.value = response.area
     }
 
     if(response.compartilhamentoTerceiros != null){

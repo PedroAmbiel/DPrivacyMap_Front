@@ -1,9 +1,8 @@
 <template>
   <div class="relative h-screen bg-cover bg-center">
 
-    <div class="absolute inset-0 bg-gradient-to-b from-[#521e1e] from-85% to-[#3c1414] z-0"> 
+    <div class="absolute inset-0 bg-gradient-to-b from-[#521e1e] from-85% to-[#3c1414] z-0" /> 
 
-    </div>
     <TopNavBar/>
     
     <!-- <DevOnly>
@@ -16,7 +15,7 @@
       </div>
    </DevOnly> -->
 
-    <div class="relative z-10 flex justify-center items-center mt-20">
+    <div class="relative z-10 flex justify-center items-center h-screen">
       <div class="flex flex-col gap-y-10 justify-center">
         <Button @click="useRouter().push('/lista_planos')" label="Operações" class="bg-[#D1D1B6] hover:scale-105 transition-all hover:!bg-slate-100 text-black text-3xl p-10 w-84 h-44 font-bold rounded-xl border-none hover:!border-none" />
         <Button @click="useRouter().push('/lista_planos_gerados')" label="Planos de Ação" class="bg-[#D1D1B6] hover:scale-105 transition-all hover:!bg-slate-100 text-black text-3xl p-10 w-96 h-44 font-bold  rounded-xl border-none hover:!border-none" />

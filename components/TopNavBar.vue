@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="absolute w-full z-50">
     <!-- Top Navbar -->
     <div class="relative z-3 flex items-center justify-between px-10 py-4 bg-[#521e1e] top-0">
       <i class="pi pi-home text-[#D1D1B6] text-4xl hover:cursor-pointer" @click="useRouter().push('/home')"></i>

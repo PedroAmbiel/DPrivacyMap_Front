@@ -2,7 +2,8 @@
   <Toast/>
   <TopNavBar/>
   <div class="flex h-screen text-black">
-    <div class="w-1/3 bg-gray-100 p-4 overflow-auto">
+    <!-- ESQUERDA -->
+    <div class="w-1/3 bg-gray-100 p-4 overflow-auto mt-16">
       <h2 class="text-xl font-semibold mb-4 text-center">Fichas Concluídas</h2>
       <ul class="space-y-2" v-if="fichasConcluidas != undefined && fichasConcluidas != 'E'">
         <li
@@ -42,15 +43,15 @@
 
 
     <!-- DIREITA -->
-    <div class="flex-1 bg-white p-6 overflow-y-scroll relative">
+    <div class="flex-1 bg-white p-6 overflow-y-scroll relative mt-16">
       <p class="text-gray-500" v-if="secoes == undefined || secoes == 'E'">Selecione um plano para visualizar!</p>
       <div class="flex items-center group w-fit relative cursor-pointer rounded-full h-10 transition-colors duration-500" @click="carregarDadosFicha(fichaSelecionada)">
         <i v-if="fichaSelecionada != null"
-          class="pi pi-search-plus text-2xl p-2 transition-transform duration-700 rounded-full group-hover:rotate-[360deg]"
+          class="pi pi-search-plus text-2xl p-2 transition-transform duration-700 rounded-full"
         ></i>
         
         <span v-if="fichaSelecionada != null"
-          class="absolute left-8 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-0 group-hover:translate-x-2 text-black px-3 py-1 text-lg"
+          class="absolute left-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-0 group-hover:translate-x-2 text-black px-3 py-1 text-lg"
         >
           Detalhes
         </span>
@@ -79,8 +80,8 @@
   </div>
 
 
-    <Dialog v-model:visible="visible" modal :draggable="false" header="Operações do plano" :style="{ width: '40rem' }" position="left"
-    class="bg-white">
+  <Dialog v-model:visible="visible" modal :draggable="false" header="Operações do plano" :style="{ width: '40rem' }" position="left"
+    class="bg-white" @hide="activeStep = '1'">
     <template #header>
       <span class="text-black">Operações do Plano</span>
     </template>
@@ -559,6 +560,8 @@
 <script lang="ts" setup>
 import { format } from 'date-fns'
 
+const route = useRoute()
+
 onMounted(async () =>{  
   buscarListaPlanos()
 })
@@ -662,6 +665,9 @@ async function buscarListaPlanos(){
         if(response.status == 200){
           
           fichasConcluidas.value = response._data
+          if(route.query.fichaSelecionada){
+            selecionarFicha(route.query.fichaSelecionada)
+          }
           console.log(fichasConcluidas.value)
         }
     },
@@ -669,6 +675,16 @@ async function buscarListaPlanos(){
       fichasConcluidas.value = []
     }
   })
+}
+
+async function selecionarFicha(idFicha:any) {
+  for(var ficha of fichasConcluidas.value){
+    if(ficha.id == Number(idFicha)){
+      console.log("entrou" , ficha)
+      fichaSelecionada.value = ficha.id
+    }
+  }
+  buscarSecaoResposta()
 }
 
 async function buscarSecaoResposta(){
@@ -808,14 +824,17 @@ async function carregarDadosFicha(idFicha:any){
 
 ::v-deep(.p-listbox-list) {
   @apply grid gap-4;
-  grid-template-columns: repeat(1, max-content);
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Duas colunas flexíveis */
   justify-content: start; 
+  align-items: start;
+  width: 100%; /* Garante que o grid use todo o espaço disponível */
 }
 
 ::v-deep(.p-listbox-item) {
-  @apply flex items-center p-2 border rounded cursor-pointer whitespace-nowrap;
+  @apply flex items-center p-2 border rounded cursor-pointer;
+  white-space: normal; /* Permite quebra de linha dentro do item */
+  word-break: break-word;
 }
-
 
 ::v-deep(.p-listbox-option-selected) {
   background-color: transparent !important;
@@ -830,5 +849,9 @@ async function carregarDadosFicha(idFicha:any){
 ::v-deep(.p-focus) {
   background-color: white !important;
   color: inherit !important;
+}
+
+::v-deep(.p-disabled){
+  background-color: white;
 }
 </style>
