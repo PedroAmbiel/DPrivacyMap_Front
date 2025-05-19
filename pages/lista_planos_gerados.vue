@@ -70,7 +70,7 @@
             <span class="text-sm right-0 top-0 px-2">Data Inicio: {{ secao.dataInicio != null ? format(secao.dataInicio, 'dd/MM/yyyy HH:mm') : `pendente` }}</span>
             <span class="text-sm right-0 top-0 px-2">Data Fim: {{ secao.dataFim != null ? format(secao.dataFim, 'dd/MM/yyyy HH:mm') : `pendente` }}</span>
           </div>
-          <div v-if="secao.dataFim != null">
+          <div v-if="secao.dataFim != null" class="text-justify">
             {{ secao.resposta }}
           </div>
         </BlockUI>

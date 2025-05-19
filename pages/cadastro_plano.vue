@@ -178,11 +178,11 @@
                 }
               }">Finalidade</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-full
+            <div class="border-none bg-surface-50 mt-10 w-full 
               dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
               <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" 
               option-value="nome" placeholder="Selecione"
-              fluid listStyle="max-height:1000px"
+              fluid listStyle="max-height:1000px;"
               class="w-full border-none rounded-none bg-white shadow-none">
                     <template #option="slotProps">
                       <div
@@ -925,18 +925,17 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
 
 <style scoped>
 
-/* Grid layout for 4 columns that auto-fit content width */
 ::v-deep(.p-listbox-list) {
   @apply grid gap-4;
-  grid-template-columns: repeat(3, max-content); /* Each column sizes to fit its content */
-  justify-content: start; /* Prevent full-width stretching */
+  grid-template-columns: repeat(3, max-content);
+  max-width: 800px; 
+  justify-content: start;
 }
 
 /* Individual listbox items */
 ::v-deep(.p-listbox-item) {
   @apply flex items-center p-2 border rounded cursor-pointer whitespace-nowrap;
 }
-
 
 ::v-deep(.p-listbox-option-selected) {
   background-color: transparent !important;
