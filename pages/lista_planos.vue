@@ -8,8 +8,37 @@
       <div class="place-self-end pt-32 pb-4 px-20">
         <Button class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none w-full font-bold" @click="useRouter().push('/cadastro_plano')">Nova Operação</Button>
       </div>
+
+    <DataTable :value="planosPendentes" class="bg-[#a5a3a3] text-slate-200 flex flex-col mx-20 rounded-lg overflow-y-auto h-auto" 
+    pt:table:class="!bg-[#a5a3a3]"
+    style="max-height: 70vh;">
+      <template #empty>
+        Nenhum plano encontrado
+      </template>
+        <Column header="Área">
+          <template #body="slotProps">
+              <span>  {{slotProps.data.area}} </span>
+          </template>
+        </Column>
+        <Column header="Status">
+          <template #body="slotProps">
+              <span v-if="slotProps.data.finalizado == false">  Em andamento </span>
+              <span v-else > Concluído </span>
+          </template>
+        </Column>
+        <Column header="Data Cadastro">
+          <template #body="slotProps">
+              {{ format(slotProps.data.dataCadastro, 'dd/MM/yyyy HH:mm') }}
+          </template>
+        </Column>
+        <Column header="Data Cadastro">
+          <template #body="slotProps">
+              <Button class="bg-[#a5a3a3] border-none text-white hover:!bg-slate-100 hover:!border-none" :class="slotProps.data.finalizado == false ? `!bg-[#2fc25b]` : ``" @click="slotProps.data.finalizado == false ? selecionarFicha(slotProps.data) : visualizarFinalizado(slotProps.data)" >{{ slotProps.data.finalizado == false ?  'Continuar' : 'Visualizar' }}</Button>
+          </template>
+        </Column>
+    </DataTable>
       
-      <div class="bg-[#a5a3a3] text-slate-200 flex flex-col mx-20 rounded-lg overflow-y-auto h-auto" style="max-height: 70vh;">
+      <!-- <div class="bg-[#a5a3a3] text-slate-200 flex flex-col mx-20 rounded-lg overflow-y-auto h-auto" style="max-height: 70vh;">
         <div v-if="planosPendentes == null" class="text-2xl text-center p-5"> Carregando...</div>
         <div v-if="planosPendentes == 'E'" class="text-2xl text-center p-5" > Nenhum plano pendente de finalização </div>
         <div v-if="planosPendentes != 'E'" v-for="item in planosPendentes" class="border-b-2 border-grey-100 hover:text-black rounded-none text-center hover:!bg-slate-100 
@@ -21,7 +50,7 @@
             -
             <span> <b> Data Cadastro: </b> {{ format(item.dataCadastro, 'dd/MM/yyyy HH:mm') }}</span>
         </div>
-      </div>
+      </div> -->
     
     </div>
   </div>
@@ -65,6 +94,16 @@ import ProgressSpinner from 'primevue/progressspinner';
 
 </script>
 
-<style>
+<style scoped>
+::v-deep(.p-datatable-header-cell) {
+  @apply bg-[#6e2828];
+}
 
+::v-deep(.p-row-even) {
+  @apply bg-[#6e2828];
+}
+
+::v-deep(.p-row-odd) {
+  @apply bg-[#6e2828];
+}
 </style>

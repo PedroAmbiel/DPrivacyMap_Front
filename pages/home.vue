@@ -1,19 +1,9 @@
 <template>
   <div class="relative h-screen bg-cover bg-center">
-
+    <Toast/>
     <div class="absolute inset-0 bg-gradient-to-b from-[#521e1e] from-85% to-[#3c1414] z-0" /> 
 
     <TopNavBar/>
-    
-    <!-- <DevOnly>
-      <div class="absolute flex flex-col bg-black border-2 rounded-md p-10 m-10">
-        <span>Id: {{ userStore().idUsuario }}</span>
-        <span>Username: {{ userStore().nome }}</span>
-        <span>Email: {{ userStore().email }}</span>
-        <span>Nome: {{ userStore().responsavel }}</span>
-        <span>Id_Permissão: {{ userStore().perfil }}</span>
-      </div>
-   </DevOnly> -->
 
     <div class="relative z-10 flex justify-center items-center h-screen">
       <div class="flex flex-col gap-y-10 justify-center">

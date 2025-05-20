@@ -51,7 +51,7 @@
         ></i>
         
         <span v-if="fichaSelecionada != null"
-          class="absolute left-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-0 group-hover:translate-x-2 text-black px-3 py-1 text-lg"
+          class="absolute left-6 opacity-100 transition-all duration-300 transform translate-x-0 group-hover:translate-x-2 text-black px-3 py-1 text-lg"
         >
           Detalhes
         </span>
@@ -71,7 +71,7 @@
             <span class="text-sm right-0 top-0 px-2">Data Fim: {{ secao.dataFim != null ? format(secao.dataFim, 'dd/MM/yyyy HH:mm') : `pendente` }}</span>
           </div>
           <div v-if="secao.dataFim != null" class="text-justify">
-            {{ secao.resposta }}
+            {{ limparTexto(secao.resposta) }}
           </div>
         </BlockUI>
       </li> 
@@ -290,26 +290,56 @@
                 }
               }">Revisão</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-full
-              dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
-              <Listbox id="revisao" v-model:model-value="revisaoSelecionado" :disabled="true" multiple :options="revisao" option-label="nome" 
-              option-value="nome" placeholder="Selecione"
-              fluid listStyle="max-height:1000px"
-              class="w-full border-none rounded-none bg-white shadow-none">
-                    <template #option="slotProps">
-                      <div
-                        :class="[
-                          'cursor-pointer px-3 py-2 rounded-md duration-150',
-                          slotProps.selected
-                            ? 'bg-white text-black w-full h-full'
-                            : 'hover:bg-white hover:underline text-black w-full h-full'
-                        ]"
-                      >
-                        <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
-                        {{ slotProps.option.nome }}
-                      </div>
-                    </template>
-              </Listbox>
+                                        <!-- <div class="border-none bg-surface-50 mt-10 w-full
+                                          dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
+                                          <Listbox id="revisao" v-model:model-value="revisaoSelecionado" :disabled="true" multiple :options="revisao" option-label="nome" 
+                                          option-value="nome" placeholder="Selecione"
+                                          fluid listStyle="max-height:1000px"
+                                          class="w-full border-none rounded-none bg-white shadow-none">
+                                                <template #option="slotProps">
+                                                  <div
+                                                    :class="[
+                                                      'cursor-pointer px-3 py-2 rounded-md duration-150',
+                                                      slotProps.selected
+                                                        ? 'bg-white text-black w-full h-full'
+                                                        : 'hover:bg-white hover:underline text-black w-full h-full'
+                                                    ]"
+                                                  >
+                                                    <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
+                                                    {{ slotProps.option.nome }}
+                                                  </div>
+                                                </template>
+                                          </Listbox>
+                                        </div> -->
+              <div class="flex flex-col py-5">
+              <div class="flex flex-row">
+                <RadioButton v-model="revisaoSelecionado" :disabled="true" inputId="revisao" name="revisao" value="Revisão feita sobre a demanda do candidato" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Revisão feita sobre a demanda do candidato</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="revisaoSelecionado" :disabled="true" inputId="revisao" name="revisao" value="Semanalmente" pt:box:class="!bg-white" />
+                <label class="text-black pl-2">Semanalmente</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="revisaoSelecionado" :disabled="true" inputId="revisao" name="revisao" value="Mensalmente" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Mensalmente</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="revisaoSelecionado" :disabled="true" inputId="revisao" name="revisao" value="Trimestralmente" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Trimestralmente</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="revisaoSelecionado" :disabled="true" inputId="revisao" name="revisao" value="Semestralmente" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Semestralmente</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="revisaoSelecionado" :disabled="true" inputId="revisao" name="revisao" value="Anualmente" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Anualmente</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="revisaoSelecionado" :disabled="true" inputId="revisao" name="revisao" value="N.A." pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">N.A.</label>
+              </div>
             </div>
             <div class="py-6 flex flex-row gap-4">
               <Button label="Voltar" @click="activateCallback('4'); " class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
@@ -335,26 +365,52 @@
                 }
               }">Retenção</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-            <div class="border-none bg-surface-50 mt-10 w-full
-              dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
-              <Listbox id="retencao" :disabled="true" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" 
-              option-value="nome" placeholder="Selecione"
-              fluid listStyle="max-height:1000px"
-              class="w-full border-none rounded-none bg-white shadow-none">
-                    <template #option="slotProps">
-                      <div
-                        :class="[
-                          'cursor-pointer px-3 py-2 rounded-md duration-150',
-                          slotProps.selected
-                            ? 'bg-white text-black w-full h-full'
-                            : 'hover:bg-white hover:underline text-black w-full h-full'
-                        ]"
-                      >
-                        <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
-                        {{ slotProps.option.nome }}
-                      </div>
-                    </template>
-              </Listbox>
+                                              <!-- <div class="border-none bg-surface-50 mt-10 w-full
+                                                dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
+                                                <Listbox id="retencao" :disabled="true" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" 
+                                                option-value="nome" placeholder="Selecione"
+                                                fluid listStyle="max-height:1000px"
+                                                class="w-full border-none rounded-none bg-white shadow-none">
+                                                      <template #option="slotProps">
+                                                        <div
+                                                          :class="[
+                                                            'cursor-pointer px-3 py-2 rounded-md duration-150',
+                                                            slotProps.selected
+                                                              ? 'bg-white text-black w-full h-full'
+                                                              : 'hover:bg-white hover:underline text-black w-full h-full'
+                                                          ]"
+                                                        >
+                                                          <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
+                                                          {{ slotProps.option.nome }}
+                                                        </div>
+                                                      </template>
+                                                </Listbox>
+                                              </div> -->
+              <div class="flex flex-col py-5">
+              <div class="flex flex-row">
+                <RadioButton v-model="retencaoSelecionado" :disabled="true" inputId="retencao" name="retencao" value="Mais de 1 ano" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Mais de 1 ano</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="retencaoSelecionado" :disabled="true" inputId="retencao" name="retencao" value="Entre 1 e 3 meses" pt:box:class="!bg-white" />
+                <label class="text-black pl-2">Entre 1 e 3 meses</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="retencaoSelecionado" :disabled="true" inputId="retencao" name="retencao" value="Até 1 mês" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Até 1 mês</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="retencaoSelecionado" :disabled="true" inputId="retencao" name="retencao" value="Entre 6 meses e 1 ano" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Entre 6 meses e 1 ano</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="retencaoSelecionado" :disabled="true" inputId="retencao" name="retencao" value="Entre 3 e 6 meses" pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">Entre 3 e 6 meses</label>
+              </div>
+              <div class="flex flex-row">
+                <RadioButton v-model="retencaoSelecionado" :disabled="true" inputId="retencao" name="retencao" value="N.A." pt:box:class="!bg-white"/>
+                <label class="text-black pl-2">N.A.</label>
+              </div>
             </div>
             <div class="py-6 flex flex-row gap-4">
               <Button label="Voltar" @click="activateCallback('5');" class="bg-white border-black hover:!bg-white hover:!border-black hover:scale-105 transition-all"/>
@@ -579,12 +635,26 @@ const idFichaEdicao = ref(null)
 
   const tipoOperacaoSelecionado = ref(null);
   const tipoOperacoes = [
-    {nome: 'Coleta', value: 'Coleta'},
-    {nome: 'Transferência', value: 'Transferência'},
-    {nome: 'Processamento', value: 'Processamento'},
-    {nome: 'Classificação', value: 'Classificação'},
-    {nome: 'Transmissão', value: 'Transmissão'},
-    {nome: 'Modificação', value: 'Modificação'},
+    { nome: 'Reprodução', value: 'Reprodução'}, 
+    { nome: 'Utilização', value: 'Utilização'}, 
+    { nome: 'Transmissão', value: 'Transmissão'}, 
+    { nome: 'Avaliação', value: 'Avaliação'}, 
+    { nome: 'Produção', value: 'Produção'}, 
+    { nome: 'Recepção', value: 'Recepção'}, 
+    { nome: 'Coleta', value: 'Coleta'}, 
+    { nome: 'Controle', value: 'Controle'}, 
+    { nome: 'Modificação', value: 'Modificação'}, 
+    { nome: 'Classificação', value: 'Classificação'}, 
+    { nome: 'Transferência', value: 'Transferência'}, 
+    { nome: 'Difusão', value: 'Difusão'}, 
+    { nome: 'Acesso', value: 'Acesso'}, 
+    { nome: 'Comunicação', value: 'Comunicação'}, 
+    { nome: 'Arquivamento', value: 'Arquivamento'}, 
+    { nome: 'Eliminação', value: 'Eliminação'}, 
+    { nome: 'Processamento', value: 'Processamento'}, 
+    { nome: 'Extração', value: 'Extração'}, 
+    { nome: 'Distribuição', value: 'Distribuição'}, 
+    { nome: 'Armazenamneto', value: 'Armazenamneto'}
   ]
 
   const dadosColetadosSelecionado = ref(null)
@@ -792,30 +862,23 @@ async function carregarDadosFicha(idFicha:any){
     }
 
     if(response.revisao){
-      var auxRevisao = []
-      for(let i of response.revisao){
-        for(let x of revisao){
-          if(x.nome == i){
-            auxRevisao.push(x.nome)
-          }
-        }
-      }
-      revisaoSelecionado.value = auxRevisao
+      revisaoSelecionado.value = response.revisao
     }
 
     if(response.retencao){
-      var auxRetencao = []
-      for(let i of response.retencao){
-        for(let x of retencao){
-          if(x.nome == i){
-            auxRetencao.push(x.nome)
-          }
-        }
-      }
-      retencaoSelecionado.value = auxRetencao
+      retencaoSelecionado.value = response.retencao
     }
 
     visible.value = true
+  }
+
+  function limparTexto(texto: string): string {
+    return texto
+      .replace(/^```(?:plaintext)?\s*/i, '')
+      .replace(/\s*```$/, '')               
+      .replace(/[*!@#$%^&()_+=\[\]{};:'"\\|<>\/?`~]/g, '') 
+      .replace(/[\r\n]{2,}/g, '\n\n')       
+      .trim();                              
   }
 
 </script>
@@ -824,15 +887,15 @@ async function carregarDadosFicha(idFicha:any){
 
 ::v-deep(.p-listbox-list) {
   @apply grid gap-4;
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Duas colunas flexíveis */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   justify-content: start; 
   align-items: start;
-  width: 100%; /* Garante que o grid use todo o espaço disponível */
+  width: 100%; 
 }
 
 ::v-deep(.p-listbox-item) {
   @apply flex items-center p-2 border rounded cursor-pointer;
-  white-space: normal; /* Permite quebra de linha dentro do item */
+  white-space: normal;
   word-break: break-word;
 }
 
