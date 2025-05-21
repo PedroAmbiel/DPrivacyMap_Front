@@ -71,7 +71,7 @@
             <span class="text-sm right-0 top-0 px-2">Data Fim: {{ secao.dataFim != null ? format(secao.dataFim, 'dd/MM/yyyy HH:mm') : `pendente` }}</span>
           </div>
           <div v-if="secao.dataFim != null" class="text-justify">
-            {{ limparTexto(secao.resposta) }}
+            <span v-html="formatarTopicosParaLista(secao.resposta)" />
           </div>
         </BlockUI>
       </li> 
@@ -880,6 +880,20 @@ async function carregarDadosFicha(idFicha:any){
       .replace(/[\r\n]{2,}/g, '\n\n')       
       .trim();                              
   }
+
+function formatarTopicosParaLista(texto: string): string {
+  // Separar os tópicos com base no hífen
+  const partes = texto.split(/\s*-\s+/);
+
+  // A primeira parte é o parágrafo introdutório
+  const introducao = partes.shift()?.trim() || '';
+
+  // Gerar lista formatada
+  const listaFormatada = partes.map(parte => `<li>- ${parte.trim()}</li><br/>`).join('\n');
+
+  // Retornar HTML completo
+  return `<p>${introducao}</p><br/><ul>${listaFormatada}</ul>`;
+}
 
 </script>
 

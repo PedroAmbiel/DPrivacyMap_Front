@@ -9,7 +9,7 @@
         <Button class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none w-full font-bold" @click="useRouter().push('/cadastro_plano')">Nova Operação</Button>
       </div>
 
-    <DataTable :value="planosPendentes" class="bg-[#a5a3a3] text-slate-200 flex flex-col mx-20 rounded-lg overflow-y-auto h-auto" 
+    <DataTable :value="planosPendentes" class="bg-[#a5a3a3] flex flex-col mx-20 rounded-lg overflow-y-auto h-auto" 
     pt:table:class="!bg-[#a5a3a3]"
     style="max-height: 70vh;">
       <template #empty>
@@ -31,7 +31,7 @@
               {{ format(slotProps.data.dataCadastro, 'dd/MM/yyyy HH:mm') }}
           </template>
         </Column>
-        <Column header="Data Cadastro">
+        <Column >
           <template #body="slotProps">
               <Button class="bg-[#a5a3a3] border-none text-white hover:!bg-slate-100 hover:!border-none" :class="slotProps.data.finalizado == false ? `!bg-[#2fc25b]` : ``" @click="slotProps.data.finalizado == false ? selecionarFicha(slotProps.data) : visualizarFinalizado(slotProps.data)" >{{ slotProps.data.finalizado == false ?  'Continuar' : 'Visualizar' }}</Button>
           </template>
@@ -100,10 +100,10 @@ import ProgressSpinner from 'primevue/progressspinner';
 }
 
 ::v-deep(.p-row-even) {
-  @apply bg-[#6e2828];
+  @apply bg-white text-black;
 }
 
 ::v-deep(.p-row-odd) {
-  @apply bg-[#6e2828];
+  @apply bg-white text-black;
 }
 </style>
