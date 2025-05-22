@@ -61,17 +61,17 @@
         <li v-for="(secao, index) in secoes" class="p-2 px-5 bg-white  rounded relative">
         <BlockUI :blocked="secao.resposta == null" :class="secao.resposta == null ? `animate-pulse` : `` " class="relative">
           <div class="text-xl font-bold p-8">
-            <span>{{ index + 1 }} </span> -
+            <span>{{ index == 0 ? '' : index + ' - ' }} </span> 
             <span>{{ secao.plano }}</span>
             <br>
-            <span class="text-sm font-normal p-8">Risco: {{ secao.risco }}</span>
+            <span class="text-sm font-normal p-8" v-if="index != 0" >Risco: {{ secao.risco }}</span>
           </div>
           <div class="text-sm absolute right-0 top-0 p-2 flex flex-row">
             <span class="text-sm right-0 top-0 px-2">Data Inicio: {{ secao.dataInicio != null ? format(secao.dataInicio, 'dd/MM/yyyy HH:mm') : `pendente` }}</span>
             <span class="text-sm right-0 top-0 px-2">Data Fim: {{ secao.dataFim != null ? format(secao.dataFim, 'dd/MM/yyyy HH:mm') : `pendente` }}</span>
           </div>
           <div v-if="secao.dataFim != null" class="text-justify">
-            <span v-html="formatarTopicosParaLista(secao.resposta)" />
+            <span v-html="cleanText(secao.resposta)" />
           </div>
         </BlockUI>
       </li> 
@@ -872,27 +872,14 @@ async function carregarDadosFicha(idFicha:any){
     visible.value = true
   }
 
-  function limparTexto(texto: string): string {
-    return texto
-      .replace(/^```(?:plaintext)?\s*/i, '')
-      .replace(/\s*```$/, '')               
-      .replace(/[*!@#$%^&()_+=\[\]{};:'"\\|<>\/?`~]/g, '') 
-      .replace(/[\r\n]{2,}/g, '\n\n')       
-      .trim();                              
-  }
+function cleanText(input: string): string {
+  const thinkTagRegex = /<think>[\s\S]*?<\/think>\s*/g;
+  let cleaned = input.replace(thinkTagRegex, '');
 
-function formatarTopicosParaLista(texto: string): string {
-  // Separar os tópicos com base no hífen
-  const partes = texto.split(/\s*-\s+/);
+  const codeBlockRegex = /```[\s\S]*?(\w+)?\s*/g;
+  cleaned = cleaned.replace(codeBlockRegex, '');
 
-  // A primeira parte é o parágrafo introdutório
-  const introducao = partes.shift()?.trim() || '';
-
-  // Gerar lista formatada
-  const listaFormatada = partes.map(parte => `<li>- ${parte.trim()}</li><br/>`).join('\n');
-
-  // Retornar HTML completo
-  return `<p>${introducao}</p><br/><ul>${listaFormatada}</ul>`;
+  return cleaned.trim();
 }
 
 </script>
