@@ -32,7 +32,6 @@
             <StepPanel v-slot="{ activateCallback, value }" pt:root:class="!bg-white">
               <div class="border-none bg-surface-50 mt-10 w-full
                 dark:bg-surface-950 flex-col flex justify-start items-start font-medium ">
-                <!-- <label for="area" class="text-slate-800 text-2xl text-center">ÁREA</label> -->
                 <Listbox v-model:model-value="areaSelecionada" :options="area" option-label="nome" option-value="nome" id="area" 
                   fluid listStyle="max-height:1000px"
                   placeholder="Área de Atuação"
@@ -114,7 +113,7 @@
                 number: {
                   class: [
                     (activeStep == '3') 
-                      ? '!bg-black !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' 
                       : (dadosColetadosSelecionado != null && dadosColetadosSelecionado.length != 0 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -152,15 +151,6 @@
             </div>
           </StepPanel>
         </StepItem>
-
-            <!-- <div class="flex flex-col">
-              <label for="finalidade" class="text-black">Finalidade</label>
-              <Listbox id="finalidade" v-model:model-value="finalidadeSelecionado" multiple :options="finalidade" option-label="nome" option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80"/>
-            </div> -->
-          <!-- </div> -->
-
-          <!-- <div class="flex flex-row justify-between gap-x-10"> -->
           <StepItem value="4">
             <Step 
               :pt="{
@@ -223,27 +213,6 @@
                 }
               }">Revisão</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-                                      <!-- <div class="border-none bg-surface-50 mt-10 w-full
-                                        dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
-                                        <Listbox id="revisao" v-model:model-value="revisaoSelecionado" multiple :options="revisao" option-label="nome" 
-                                        option-value="nome" placeholder="Selecione"
-                                        fluid listStyle="max-height:1000px"
-                                        class="w-full border-none rounded-none bg-white shadow-none">
-                                              <template #option="slotProps">
-                                                <div
-                                                  :class="[
-                                                    'cursor-pointer px-3 py-2 rounded-md duration-150',
-                                                    slotProps.selected
-                                                      ? 'bg-white text-black w-full h-full'
-                                                      : 'hover:bg-white hover:underline text-black w-full h-full'
-                                                  ]"
-                                                >
-                                                  <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
-                                                  {{ slotProps.option.nome }}
-                                                </div>
-                                              </template>
-                                        </Listbox>
-                                      </div> -->
             <div class="flex flex-col py-5">
               <div class="flex flex-row">
                 <RadioButton v-model="revisaoSelecionado" inputId="revisao" name="revisao" value="Revisão feita sobre a demanda do candidato" pt:box:class="!bg-white"/>
@@ -298,27 +267,6 @@
                 }
               }">Retenção</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
-                                                      <!-- <div class="border-none bg-surface-50 mt-10 w-full
-                                                        dark:bg-surface-950 flex-col flex justify-start items-start font-medium">
-                                                        <Listbox id="retencao" v-model:model-value="retencaoSelecionado" multiple :options="retencao" option-label="nome" 
-                                                        option-value="nome" placeholder="Selecione"
-                                                        fluid listStyle="max-height:1000px"
-                                                        class="w-full border-none rounded-none bg-white shadow-none">
-                                                              <template #option="slotProps">
-                                                                <div
-                                                                  :class="[
-                                                                    'cursor-pointer px-3 py-2 rounded-md duration-150',
-                                                                    slotProps.selected
-                                                                      ? 'bg-white text-black w-full h-full'
-                                                                      : 'hover:bg-white hover:underline text-black w-full h-full'
-                                                                  ]"
-                                                                >
-                                                                  <i class="pi pi-stop" v-if="!slotProps.selected"/> <i v-else class="pi pi-check-square" />
-                                                                  {{ slotProps.option.nome }}
-                                                                </div>
-                                                              </template>
-                                                        </Listbox>
-                                                      </div> -->
             <div class="flex flex-col py-5">
               <div class="flex flex-row">
                 <RadioButton v-model="retencaoSelecionado" inputId="retencao" name="retencao" value="Mais de 1 ano" pt:box:class="!bg-white"/>
@@ -351,39 +299,6 @@
             </div>
             </StepPanel>
           </StepItem>
-
-            <!-- <div class="flex flex-col"> -->
-              <!-- <label for="seguranca" class="text-black">Segurança</label>
-              <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80"/> -->
-              
-              <!-- <label for="seguranca" class="text-black">Segurança</label>
-              <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
-                <label class="text-black pl-2">Exclusão de E-mails</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de Acesso" pt:box:class="!bg-yellow-300" />
-                <label class="text-black pl-2">Limitação de Acesso</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Limitação de acesso e Exclusão de E-mails" pt:box:class="!bg-yellow-300"/>
-                <label class="text-black pl-2">Limitação de acesso e Exclusão de E-mails</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Outros" pt:box:class="!bg-yellow-300"/>
-                <label class="text-black pl-2">Outros</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="N.A." pt:box:class="!bg-yellow-300"/>
-                <label class="text-black pl-2">N.A.</label>
-              </div>
-            </div> -->
-
-
-          <!-- </div> -->
-
-          <!-- <div class="flex flex-row justify-around p-10"> -->
             
           <StepItem value="7">
             <Step 
@@ -391,7 +306,7 @@
                 number: {
                   class: [
                     (activeStep == '7') 
-                      ? '!bg-black !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' 
                       : (segurancaSelecionado != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -403,9 +318,6 @@
               }">Segurança</Step>
             <StepPanel v-slot="{ activateCallback }" pt:root:class="!bg-white">
             <div class="flex flex-col py-5">
-              <!-- <label for="seguranca" class="text-black">Segurança</label>
-              <MultiSelect id="seguranca" v-model:model-value="segurancaSelecionado" :options="seguranca" option-label="nome" option-value="nome" placeholder="Selecione"
-              class="w-full md:w-80"/> -->
               <div class="flex flex-row">
                 <RadioButton v-model="segurancaSelecionado" inputId="seguranca" name="seguranca" value="Exclusão de E-mails" pt:box:class="!bg-white"/>
                 <label class="text-black pl-2">Exclusão de E-mails</label>
@@ -483,7 +395,7 @@
                 number: {
                   class: [
                     (activeStep == '9') 
-                      ? '!bg-black !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none' 
                       : (exclusao != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -511,40 +423,13 @@
             </StepPanel>
           </StepItem>
 
-            <!-- <div class="flex flex-col">
-              <label class="text-slate-800 text-2xl ">COMPARTILHAMENTO À TERCEIROS</label>
-              <div class="flex flex-row">
-                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="true" pt:box:class="!bg-white"/>
-                <label class="text-black pl-2">Sim</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="compartilhamentoTerceiros" inputId="compartilhamento_terceiros" name="compartilhamento_terceiros" :value="false" pt:box:class="!bg-white" />
-                <label class="text-black pl-2">Não</label>
-              </div>
-            </div> -->
-
-            <!-- <div class="flex flex-col">
-              <label for="transferencia_internacional" class="text-slate-800 text-2xl">TRANSFERÊNCIA INTERNACIONAL</label>
-              <div class="flex flex-row">
-                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="true" pt:box:class="!bg-white"/>
-                <label class="text-black pl-2">Sim</label>
-              </div>
-              <div class="flex flex-row">
-                <RadioButton v-model="transferenciaInternacional" inputId="transferencia_internacional" name="transferencia_internacional" :value="false" pt:box:class="!bg-white" />
-                <label class="text-black pl-2">Não</label>
-              </div>
-            </div> -->
-
-          <!-- </div> -->
-
-          <!-- <div class="flex flex-row justify-around p-10"> -->
           <StepItem value="10">
             <Step 
               :pt="{
                 number: {
                   class: [
                     (activeStep == '10') 
-                      ? '!bg-black !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none'
                       : (compartilhamentoTerceiros != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -578,7 +463,7 @@
                 number: {
                   class: [
                     (activeStep == '11') 
-                      ? '!bg-black !text-white border-none' // custom color when active
+                      ? '!bg-black !text-white border-none'
                       : (transferenciaInternacional != null 
                           ? 'bg-green-400 text-black border-none' 
                           : 'bg-red-400 text-black border-none')
@@ -604,21 +489,6 @@
           </div>
         </StepPanel>
       </StepItem>
-
-          <!-- </div> -->
-
-          <!-- <div class="flex flex-row justify-between">
-
-
-            <InputText id="area">
-            </InputText>
-
-            <InputText id="area">
-            </InputText>
-          </div> -->
-        <!-- </StepPanels> -->
-        
-      <!-- </div> -->
             <div class="pt-12 flex flex-row gap-x-3">
               <Button value="Salvar" class="bg-[#6e2828] border-none text-white hover:!bg-slate-100 shadow-xl hover:!border-none font-bold" @click="salvarFicha()">
                 Salvar
@@ -964,34 +834,9 @@ import { createPersistedState } from 'pinia-plugin-persistedstate'
       finalidadeSelecionado.value = auxFinalidade
     }
 
-    // if(response.revisao){
-    //   var auxRevisao = []
-    //   for(let i of response.revisao){
-    //     for(let x of revisao){
-    //       if(x.nome == i){
-    //         auxRevisao.push(x.nome)
-    //       }
-    //     }
-    //   }
-    //   revisaoSelecionado.value = auxRevisao
-    // }
-
     if(response.revisao){
       revisaoSelecionado.value = response.revisao
     }
-
-    // if(response.retencao){
-    //   var auxRetencao = []
-    //   for(let i of response.retencao){
-    //     for(let x of retencao){
-    //       if(x.nome == i){
-    //         auxRetencao.push(x.nome)
-    //       }
-    //     }
-    //   }
-    //   retencaoSelecionado.value = auxRetencao
-    // }
-
 
     if(response.retencao){
       retencaoSelecionado.value = response.retencao
